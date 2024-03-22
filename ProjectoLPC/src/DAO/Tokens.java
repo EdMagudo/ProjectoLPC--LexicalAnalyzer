@@ -1,0 +1,51 @@
+package DAO;
+
+public class Tokens {
+
+    public static final String token_soma = "soma";
+    public static final String token_subtraccao = "subtraccao";
+    public static final String token_multiplicacao = "multiplicacao";
+    public static final String token_divisao = "divisao";
+    public static final String token_igual = "igual";
+    public static final String token_diferente = "diferente";
+    public static final String token_menor = "menor";
+    public static final String token_maior = "maior";
+    public static final String token_maior_igual = "maior_igual";
+    public static final String token_menor_igual = "menor_igual";
+    public static final String token_abrir_parenteses = "abrir_parenteses";
+    public static final String token_fechar_parenteses = "fechar_parenteses";
+    public static final String token_abrir_conchetes = "abrir_conchetes";
+    public static final String token_fechar_conchetes = "fechar_conchetes";
+    public static final String token_igual_atribuicao = "igual_atribuicao";
+    public static final String token_ponto = "ponto";
+    public static final String token_virgula = "virgula";
+    public static final String token_ponto_virgula = "ponto_virgula";
+    public static final String token_dois_pontos = "dois_pontos";
+    public static final String token_div = "div";
+    public static final String token_or = "or";
+    public static final String token_and = "and";
+    public static final String token_not = "not";
+    public static final String token_if = "if";
+    public static final String token_then = "then";
+    public static final String token_else = "else";
+    public static final String token_of = "of";
+    public static final String token_while = "while";
+    public static final String token_do = "do";
+    public static final String token_begin = "begin";
+    public static final String token_end = "end";
+    public static final String token_read = "read";
+    public static final String token_write = "write";
+    public static final String token_writeln = "writeln";
+    public static final String token_readln = "readln";
+    public static final String token_var = "var";
+    public static final String token_array = "array";
+    public static final String token_function = "function";
+    public static final String token_procedure = "procedure";
+    public static final String token_program = "program";
+    public static final String token_true = "true";
+    public static final String token_false = "false";
+    public static final String token_char = "char";
+    public static final String token_integer = "integer";
+    public static final String token_boolean = "boolean";
+    public static final String token_erro = "erro";
+}
