@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/DNPD/Desktop/Edilton%20Magudo/ProjectoLPC/src/projectolpc/FXMLDocument.fxml</file>
-            <file>file:/C:/Users/DNPD/Desktop/Edilton%20Magudo/ProjectoLPC/src/projectolpc/ProjectoLPC.java</file>
-            <file>file:/C:/Users/DNPD/Desktop/Edilton%20Magudo/ProjectoLPC/src/projectolpc/FXMLDocumentController.java</file>
+            <file>file:/D:/Edilton%20Magudo/Repositorio%20Local%20GitHub/Repositorio/ProjectoLPC/src/projectolpc/ProjectoLPC.java</file>
+            <file>file:/D:/Edilton%20Magudo/Repositorio%20Local%20GitHub/Repositorio/ProjectoLPC/src/View/ViewPrincipal.fxml</file>
+            <file>file:/D:/Edilton%20Magudo/Repositorio%20Local%20GitHub/Repositorio/ProjectoLPC/src/DAO/PalavrasReservadas.java</file>
+            <file>file:/D:/Edilton%20Magudo/Repositorio%20Local%20GitHub/Repositorio/ProjectoLPC/src/Controllers/MainController.java</file>
         </group>
     </open-files>
 </project-private>

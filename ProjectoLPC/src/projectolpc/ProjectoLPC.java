@@ -22,7 +22,7 @@ public class ProjectoLPC extends Application {
         Image image = new Image("/Image/configuracao.png");
         stage.getIcons().add(image);
         stage.setResizable(false);
-        stage.setTitle("Mini-Pascal Lexical Analizer");
+        stage.setTitle("Mini-Pascal Lexical Analyzer");
         stage.show();
     }
 
