@@ -39,7 +39,7 @@ public class sujidade {
     }
 
     public static void analisarPalavras(String linha, int numeroLinha) {
-        String[] palavras = linha.split("\\s+"); 
+        String[] palavras = linha.split("\\s+");
 
         for (String palavra : palavras) {
             String tipoPalavra = verificarTipoPalavra(palavra);
@@ -128,18 +128,19 @@ public class sujidade {
                         return "Sinal de atribuicacao";
                     } else {
                         for (int i = 0; i < token.length(); i++) {
-                            String a = Character.toString(token.charAt(i));
-                            // Nao consigo usar esse metodo contains
-                            //basicamente ele deve ver se cada caracter do tken faz parte do alfatebo, nesse casso letras
-                            if(a.contains(PalavrasReservadas.letras)){
+                            char c = token.charAt(i);
+                               if (Character.isLetter(c)) {
                                 return "Identificador";
                             }
                         }
-                        return "Erro";                    
-                   }
+
+                        return "Erro";
+                    }
                 }
         }
     }
+
+    
 
     public static boolean isNumero(String palavra) {
         try {
