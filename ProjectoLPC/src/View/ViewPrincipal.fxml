@@ -70,7 +70,7 @@
                               <Image url="@../Image/diskette.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="run" fitHeight="37.0" fitWidth="31.0" layoutX="184.0" layoutY="8.0"  pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="run" fitHeight="37.0" fitWidth="31.0" layoutX="184.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Image/run.png" />
                            </image>
@@ -86,9 +86,8 @@
                   <TableView fx:id="tabela" layoutX="771.0" layoutY="76.0" prefHeight="647.0" prefWidth="688.0">
                     <columns>
                       <TableColumn fx:id="linha" minWidth="34.39996337890625" prefWidth="61.5999755859375" text="Linha" />
-                      <TableColumn fx:id="token" minWidth="50.0" prefWidth="218.40008544921875" text="Token" />
-                        <TableColumn fx:id="lexema" minWidth="50.0" prefWidth="200.0" text="Lexema" />
-                        <TableColumn fx:id="erro" minWidth="50.0" prefWidth="200.0" text="Erro" />
+                        <TableColumn fx:id="tipoToken" minWidth="50.0" prefWidth="380.0" text="Tipo de Token" />
+                        <TableColumn fx:id="lexema" minWidth="50.0" prefWidth="250.0" text="Lexema" />
                     </columns>
                   </TableView>
                   <Pane layoutX="772.0" layoutY="732.0" prefHeight="37.0" prefWidth="688.0" style="-fx-background-color: #6F6F6F;">
@@ -98,7 +97,12 @@
                               <Font name="Segoe UI Bold" size="18.0" />
                            </font>
                         </Text>
-                        <Text fx:id="time" fill="WHITE" layoutX="199.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 mls">
+                        <Text fx:id="time" fill="WHITE" layoutX="201.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="37.0">
+                           <font>
+                              <Font name="Segoe UI" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="time1" fill="#f7f7f7" layoutX="257.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="mls" wrappingWidth="37.0">
                            <font>
                               <Font name="Segoe UI" size="18.0" />
                            </font>

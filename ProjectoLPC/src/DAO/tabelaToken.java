@@ -3,13 +3,11 @@ package DAO;
 public class tabelaToken {
 
     public int numero_linha;
-    public String Token;
     public String tipoToken;
     public String lexema;
 
-    public tabelaToken(int numero_linha, String Token, String tipoToken, String lexema) {
+    public tabelaToken(int numero_linha, String tipoToken, String lexema) {
         this.numero_linha = numero_linha;
-        this.Token = Token;
         this.tipoToken = tipoToken;
         this.lexema = lexema;
     }
@@ -30,14 +28,7 @@ public class tabelaToken {
         this.numero_linha = numero_linha;
     }
 
-    public String getToken() {
-        return Token;
-    }
-
-    public void setToken(String Token) {
-        this.Token = Token;
-    }
-
+   
     public String getTipoToken() {
         return tipoToken;
     }
@@ -46,12 +37,5 @@ public class tabelaToken {
         this.tipoToken = tipoToken;
     }
 
-    @Override
-    public String toString() {
-        return "tabelaToken{" + "numero_linha=" + numero_linha + ", Token=" + Token + ", tipoToken=" + tipoToken + ", lexema=" + lexema + '}';
-    }
-
-    
-    
-    
+   
 }

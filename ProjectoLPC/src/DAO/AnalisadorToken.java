@@ -1,11 +1,11 @@
 package DAO;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AnalisadorToken {
 
  public ArrayList<tabelaToken> dividirTextoEmLinhas(String textoTextArea) {
+          
     ArrayList<tabelaToken> b = new ArrayList<>();
     if (textoTextArea != null && !textoTextArea.isEmpty()) {
         String[] linhasTexto = textoTextArea.split("\\n");
@@ -14,6 +14,8 @@ public class AnalisadorToken {
             b.addAll(dividirCodigo(linha, numeroLinha));
             numeroLinha++;
         }
+    }else{
+        return null;
     }
     return b;
 }
@@ -23,7 +25,7 @@ public ArrayList<tabelaToken> dividirCodigo(String texto, int numeroLinha) {
     String[] partes = texto.split("\\s+");
     for (String palavra : partes) {
         String tipoPalavra = verificarTipoPalavra(palavra);
-        tabelaToken linha = new tabelaToken(numeroLinha, palavra, tipoPalavra, palavra);
+        tabelaToken linha = new tabelaToken(numeroLinha, palavra, tipoPalavra);
         b.add(linha);
     }
     return b;
@@ -119,7 +121,6 @@ public ArrayList<tabelaToken> dividirCodigo(String texto, int numeroLinha) {
                                 return "Identificador";
                             }
                         }
-
                         return "Erro";
                     }
                 }

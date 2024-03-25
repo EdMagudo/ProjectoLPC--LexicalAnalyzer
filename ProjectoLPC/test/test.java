@@ -4,15 +4,12 @@ import DAO.tabelaToken;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-
 public class test extends javax.swing.JFrame {
 
-    
     public test() {
         initComponents();
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -82,37 +79,35 @@ public class test extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      listar();
+        listar();
     }//GEN-LAST:event_jButton1ActionPerformed
-  DefaultTableModel modelo = new DefaultTableModel();
-    /**
-     * @param args the command line arguments
-     */
-    public  void listar() {
-        
+   
+    DefaultTableModel modelo = new DefaultTableModel();
+
+    public void listar() {
 
         ArrayList<tabelaToken> a = new AnalisadorToken().dividirTextoEmLinhas(campo.getText());
-        
-        if(a==null)System.out.println("nullo"); else System.out.println(a);
-        
+
+        if (a == null) {
+            System.out.println("nullo");
+        } else {
+            System.out.println(a);
+        }
+
         modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
         for (tabelaToken teste : a) {
             Object[] dad = {
                 teste.getNumero_linha(),
-                teste.getToken(),
                 teste.getTipoToken(),
-                teste.getLexema(),                
-            };
+                teste.getLexema(),};
             modelo.addRow(dad);
 
         }
     }
 
-  
-
     public static void main(String args[]) {
-        
+
         new test().setVisible(true);
 
     }

@@ -34,7 +34,7 @@ public ArrayList<tabelaToken> dividirCodigo(String texto, int numeroLinha) {
     String[] partes = texto.split("\\s+");
     for (String palavra : partes) {
         String tipoPalavra = verificarTipoPalavra(palavra);
-        tabelaToken linha = new tabelaToken(numeroLinha, palavra, tipoPalavra, palavra);
+        tabelaToken linha = new tabelaToken(numeroLinha, palavra, tipoPalavra);
         b.add(linha);
     }
     return b;
