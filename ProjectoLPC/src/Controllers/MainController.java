@@ -1,7 +1,6 @@
 package Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -10,8 +9,6 @@ import javax.swing.JFileChooser;
 
 import DAO.AnalisadorToken;
 import DAO.TabelaToken;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,10 +20,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 public class MainController implements Initializable {
 
@@ -105,7 +100,6 @@ public class MainController implements Initializable {
     @FXML
     void runn(MouseEvent event) {
         tabela.getItems().clear();
-        ObservableList<CharSequence> list = campo.getParagraphs();
         paragrafos = campo.getText();
         palavras = transfomarPalavras(paragrafos);
 
