@@ -1,9 +1,18 @@
 package Controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.swing.JFileChooser;
+
+import DAO.AnalisadorToken;
+import DAO.TabelaToken;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,11 +20,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 public class MainController implements Initializable {
 
@@ -23,13 +34,13 @@ public class MainController implements Initializable {
     private TextArea campo;
 
     @FXML
-    private TableColumn<String, String> erro;
+    private TableColumn<TabelaToken, String> erro;
 
     @FXML
-    private TableColumn<String, String> lexema;
+    private TableColumn<TabelaToken, String> lexema;
 
     @FXML
-    private TableColumn<String, String> linha;
+    private TableColumn<TabelaToken, Integer> linha;
 
     @FXML
     private ImageView new_File;
@@ -47,49 +58,37 @@ public class MainController implements Initializable {
     private ImageView settings;
 
     @FXML
-    private TableView<String> tabela;
+    private TableView<TabelaToken> tabela;
 
     @FXML
     private Text time;
 
     @FXML
-    private TableColumn<String, String> token;
+    private TableColumn<TabelaToken, String> token;
 
     @FXML
     private Button touch;
 
+    ObservableList<TabelaToken> tokensList = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        linha.setCellValueFactory(new PropertyValueFactory<TabelaToken, Integer>("numero_linha"));
+        token.setCellValueFactory(new PropertyValueFactory<TabelaToken, String>("token"));
+        lexema.setCellValueFactory(new PropertyValueFactory<TabelaToken, String>("lexema"));
+        erro.setCellValueFactory(new PropertyValueFactory<TabelaToken, String>("erro"));
     }
 
-    int nrParagrafos = 0;
     String paragrafos;
     String[] palavras;
-    int[] linhas_por_palavra;
-
-    @FXML
-    void escrevendoCodigo(KeyEvent event) {
-        ObservableList<CharSequence> list = campo.getParagraphs();
-        paragrafos = campo.getText();
-        palavras = dividirEmPalavras(paragrafos);
-        nrParagrafos = list.size();
-        linhas_por_palavra = new int[nrParagrafos];
-        numerar(paragrafos.toString());
-        /*
-         * palavras = campo.getParagraphs().toArray();
-         * cont_palavra(paragrafos);
-         */
-        System.out.println("--------------------------------------------------------------------");
-        System.out.println(paragrafos);
-        System.out.println(palavras.length);
-        System.out.println(linhas_por_palavra[0]);
-        System.out.println("--------------------------------------------------------------------");
-    }
+    List<TabelaToken> lisTabelaTokens;
+    @SuppressWarnings("rawtypes")
+    List linhas_por_palavra;
 
     @FXML
     void create(MouseEvent event) {
-        System.out.println("1");
+        JFileChooser fileChooser = new JFileChooser();
+
     }
 
     @FXML
@@ -105,8 +104,29 @@ public class MainController implements Initializable {
 
     @FXML
     void runn(MouseEvent event) {
-        tabela.setItems(null);
+        tabela.getItems().clear();
+        ObservableList<CharSequence> list = campo.getParagraphs();
+        paragrafos = campo.getText();
+        palavras = transfomarPalavras(paragrafos);
 
+        for (int i = 0; i < palavras.length; i++) {
+            String tokene = null;
+            String erro = "Sem erros";
+
+            tokene = (AnalisadorToken.verificarTipoPalavra(palavras[i]));
+            if (tokene == "Erro") {
+                erro = tokene;
+                tokene = null;
+            }
+            TabelaToken token = new TabelaToken(
+                    (int) linhas_por_palavra.get(i),
+                    tokene,
+                    palavras[i],
+                    erro);
+
+            tokensList.add(token);
+        }
+        tabela.setItems(tokensList);
     }
 
     @FXML
@@ -125,35 +145,27 @@ public class MainController implements Initializable {
         imagem.setImage(new Image("/Image/" + imagem.getId() + ".png"));
     }
 
-    public void numerar(String string) {
-        int nrPorParagrafos = 1;
-        int y = 0;
-        for (int i = 0; i < string.length(); i++) {
-            if (string.charAt(i) == ',') {
-                System.out.print(nrPorParagrafos);
-                linhas_por_palavra[y] = nrPorParagrafos;
-                nrPorParagrafos++;
-            } else if (string.charAt(i) == ' ') {
-                y++;
-            }
-        }
-    }
-
     public String[] stringEmArray(String string) {
         for (int i = 0; i < string.length(); i++) {
         }
         return null;
     }
 
-    public String[] dividirEmPalavras(String texto) {
+    public String[] transfomarPalavras(String texto) {
         List<String> palavras = new ArrayList<>();
         StringBuilder palavra = new StringBuilder();
-
+        List<Integer> numLinha = new ArrayList<>();
+        int linha = 1;
+        char c = '\n';
         for (char caracter : texto.toCharArray()) {
             if (Character.isWhitespace(caracter)) {
+                if (c == caracter) {
+                    linha++;
+                }
                 if (palavra.length() > 0) {
                     palavras.add(palavra.toString());
-                    palavra.setLength(0); 
+                    palavra.setLength(0);
+                    numLinha.add(linha);
                 }
             } else {
                 palavra.append(caracter);
@@ -162,8 +174,10 @@ public class MainController implements Initializable {
 
         if (palavra.length() > 0) {
             palavras.add(palavra.toString());
+            numLinha.add(linha);
         }
 
+        linhas_por_palavra = numLinha;
         return palavras.toArray(new String[palavras.size()]);
     }
 

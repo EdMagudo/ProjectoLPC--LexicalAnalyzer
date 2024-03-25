@@ -1,25 +1,25 @@
 package DAO;
 
-public class tabelaToken {
+public class TabelaToken {
 
-    public int numero_linha;
-    public String Token;
-    public String tipoToken;
+    public Integer numero_linha;
+    public String token;
     public String lexema;
+    public String erro;
 
-    public tabelaToken(int numero_linha, String Token, String tipoToken, String lexema) {
+    public TabelaToken(int numero_linha, String token, String lexema, String erro) {
         this.numero_linha = numero_linha;
-        this.Token = Token;
-        this.tipoToken = tipoToken;
+        this.token = token;
         this.lexema = lexema;
+        this.erro = erro;
     }
 
-    public String getLexema() {
-        return lexema;
+    public String getErro() {
+        return erro;
     }
 
-    public void setLexema(String lexema) {
-        this.lexema = lexema;
+    public void setErro(String erro) {
+        this.erro = erro;
     }
 
     public int getNumero_linha() {
@@ -31,27 +31,25 @@ public class tabelaToken {
     }
 
     public String getToken() {
-        return Token;
+        return token;
     }
 
-    public void setToken(String Token) {
-        this.Token = Token;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getTipoToken() {
-        return tipoToken;
+    public String getLexema() {
+        return lexema;
     }
 
-    public void setTipoToken(String tipoToken) {
-        this.tipoToken = tipoToken;
+    public void setLexema(String lexema) {
+        this.lexema = lexema;
     }
 
     @Override
     public String toString() {
-        return "tabelaToken{" + "numero_linha=" + numero_linha + ", Token=" + Token + ", tipoToken=" + tipoToken + ", lexema=" + lexema + '}';
+        return "tabelaToken{" + "numero_linha=" + numero_linha + ", token=" + token + ", lexema=" + lexema
+                + ", erro=" + erro + '}';
     }
 
-    
-    
-    
 }

@@ -1,42 +1,42 @@
 
 import DAO.Tokens;
-import DAO.tabelaToken;
+import DAO.TabelaToken;
 import java.util.ArrayList;
 
 public class sujidade {
 
     public static void main(String[] args) {
         String linha = "x := 10 + y * (20 - z ) ;";
-        ArrayList<tabelaToken> b = new sujidade().dividirTextoEmLinhas(linha);
-        
-        for(tabelaToken c:b){
+        ArrayList<TabelaToken> b = new sujidade().dividirTextoEmLinhas(linha);
+
+        for (TabelaToken c : b) {
             System.out.println(c.toString());
         }
     }
 
-    public ArrayList<tabelaToken> dividirTextoEmLinhas(String textoTextArea) {
-    ArrayList<tabelaToken> b = new ArrayList<>();
-    if (textoTextArea != null && !textoTextArea.isEmpty()) {
-        String[] linhasTexto = textoTextArea.split("\\n");
-        int numeroLinha = 1;
-        for (String linha : linhasTexto) {
-            b.addAll(dividirCodigo(linha, numeroLinha));
-            numeroLinha++;
+    public ArrayList<TabelaToken> dividirTextoEmLinhas(String textoTextArea) {
+        ArrayList<TabelaToken> b = new ArrayList<>();
+        if (textoTextArea != null && !textoTextArea.isEmpty()) {
+            String[] linhasTexto = textoTextArea.split("\\n");
+            int numeroLinha = 1;
+            for (String linha : linhasTexto) {
+                b.addAll(dividirCodigo(linha, numeroLinha));
+                numeroLinha++;
+            }
         }
+        return b;
     }
-    return b;
-}
 
-public ArrayList<tabelaToken> dividirCodigo(String texto, int numeroLinha) {
-    ArrayList<tabelaToken> b = new ArrayList<>();
-    String[] partes = texto.split("\\s+");
-    for (String palavra : partes) {
-        String tipoPalavra = verificarTipoPalavra(palavra);
-        tabelaToken linha = new tabelaToken(numeroLinha, palavra, tipoPalavra, palavra);
-        b.add(linha);
+    public ArrayList<TabelaToken> dividirCodigo(String texto, int numeroLinha) {
+        ArrayList<TabelaToken> b = new ArrayList<>();
+        String[] partes = texto.split("\\s+");
+        for (String palavra : partes) {
+            String tipoPalavra = verificarTipoPalavra(palavra);
+            TabelaToken linha = new TabelaToken(numeroLinha, palavra, tipoPalavra, palavra);
+            b.add(linha);
+        }
+        return b;
     }
-    return b;
-}
 
     public static String verificarTipoPalavra(String token) {
         switch (token) {
@@ -101,7 +101,7 @@ public ArrayList<tabelaToken> dividirCodigo(String texto, int numeroLinha) {
             case Tokens.token_boolean:
                 return "Tipo de Dados";
 
-            //Token de erro   
+            // Token de erro
             case Tokens.token_erro:
                 return "Erro";
 
