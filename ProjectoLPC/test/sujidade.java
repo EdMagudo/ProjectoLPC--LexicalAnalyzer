@@ -2,7 +2,6 @@
 import DAO.Tokens;
 import DAO.tabelaToken;
 import java.util.ArrayList;
-import java.util.List;
 
 public class sujidade {
 

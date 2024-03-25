@@ -1,6 +1,8 @@
 package Controllers;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -63,7 +65,6 @@ public class MainController implements Initializable {
 
     int nrParagrafos = 0;
     String paragrafos;
-    String[] paragrafosArray;
     String[] palavras;
     int[] linhas_por_palavra;
 
@@ -71,6 +72,7 @@ public class MainController implements Initializable {
     void escrevendoCodigo(KeyEvent event) {
         ObservableList<CharSequence> list = campo.getParagraphs();
         paragrafos = campo.getText();
+        palavras = dividirEmPalavras(paragrafos);
         nrParagrafos = list.size();
         linhas_por_palavra = new int[nrParagrafos];
         numerar(paragrafos.toString());
@@ -80,11 +82,8 @@ public class MainController implements Initializable {
          */
         System.out.println("--------------------------------------------------------------------");
         System.out.println(paragrafos);
+        System.out.println(palavras.length);
         System.out.println(linhas_por_palavra[0]);
-        System.out.println("--------------------------------------------------------------------");
-        for (int i = 0; i < paragrafos.length(); i++) {
-            System.out.println(paragrafos.charAt(i));
-        }
         System.out.println("--------------------------------------------------------------------");
     }
 
@@ -140,10 +139,32 @@ public class MainController implements Initializable {
         }
     }
 
-    public String[] stringEmArray(String string){
+    public String[] stringEmArray(String string) {
         for (int i = 0; i < string.length(); i++) {
         }
         return null;
+    }
+
+    public String[] dividirEmPalavras(String texto) {
+        List<String> palavras = new ArrayList<>();
+        StringBuilder palavra = new StringBuilder();
+
+        for (char caracter : texto.toCharArray()) {
+            if (Character.isWhitespace(caracter)) {
+                if (palavra.length() > 0) {
+                    palavras.add(palavra.toString());
+                    palavra.setLength(0); 
+                }
+            } else {
+                palavra.append(caracter);
+            }
+        }
+
+        if (palavra.length() > 0) {
+            palavras.add(palavra.toString());
+        }
+
+        return palavras.toArray(new String[palavras.size()]);
     }
 
 }
