@@ -1,50 +1,43 @@
 
 import DAO.Tokens;
+import DAO.tabelaToken;
 import java.util.ArrayList;
 import java.util.List;
 
 public class sujidade {
 
     public static void main(String[] args) {
-        String linha = "x := 10 + y * ( 20 - z ) ;";
-        System.out.println(divid(linha));
-    }
-
-    public static String divid(String texto) {
-
-        List<String> partes = new ArrayList<>();
-        int i = 0;
-        do {
-
-            if (texto.charAt(i) == ' ') {
-                i++;
-            } else {
-
-                int fimPalavra = i + 1;
-                while (fimPalavra < texto.length() && texto.charAt(fimPalavra) != ' ') {
-                    fimPalavra++;
-                }
-                partes.add(texto.substring(i, fimPalavra));
-                i = fimPalavra;
-            }
-        } while (i < texto.length());
-
-        StringBuilder resultado = new StringBuilder();
-        for (String palavra : partes) {
-            String tipoPalavra = verificarTipoPalavra(palavra);
-            resultado.append("Token: ").append(palavra).append(" , Tipo: ").append(tipoPalavra).append(" \n");
-        }
-        return resultado.toString();
-    }
-
-    public static void analisarPalavras(String linha, int numeroLinha) {
-        String[] palavras = linha.split("\\s+");
-
-        for (String palavra : palavras) {
-            String tipoPalavra = verificarTipoPalavra(palavra);
-            System.out.println("Token: " + palavra + ", Tipo: " + tipoPalavra + ", Linha: " + numeroLinha);
+        String linha = "x := 10 + y * (20 - z ) ;";
+        ArrayList<tabelaToken> b = new sujidade().dividirTextoEmLinhas(linha);
+        
+        for(tabelaToken c:b){
+            System.out.println(c.toString());
         }
     }
+
+    public ArrayList<tabelaToken> dividirTextoEmLinhas(String textoTextArea) {
+    ArrayList<tabelaToken> b = new ArrayList<>();
+    if (textoTextArea != null && !textoTextArea.isEmpty()) {
+        String[] linhasTexto = textoTextArea.split("\\n");
+        int numeroLinha = 1;
+        for (String linha : linhasTexto) {
+            b.addAll(dividirCodigo(linha, numeroLinha));
+            numeroLinha++;
+        }
+    }
+    return b;
+}
+
+public ArrayList<tabelaToken> dividirCodigo(String texto, int numeroLinha) {
+    ArrayList<tabelaToken> b = new ArrayList<>();
+    String[] partes = texto.split("\\s+");
+    for (String palavra : partes) {
+        String tipoPalavra = verificarTipoPalavra(palavra);
+        tabelaToken linha = new tabelaToken(numeroLinha, palavra, tipoPalavra, palavra);
+        b.add(linha);
+    }
+    return b;
+}
 
     public static String verificarTipoPalavra(String token) {
         switch (token) {
@@ -102,6 +95,8 @@ public class sujidade {
             // Tokens de tipos de dados
             case Tokens.token_true:
             case Tokens.token_false:
+                return "Valor boleano";
+
             case Tokens.token_char:
             case Tokens.token_integer:
             case Tokens.token_boolean:
@@ -128,7 +123,8 @@ public class sujidade {
                     } else {
                         for (int i = 0; i < token.length(); i++) {
                             char c = token.charAt(i);
-                               if (Character.isLetter(c)) {
+
+                            if (Character.isLetter(c)) {
                                 return "Identificador";
                             }
                         }
@@ -138,8 +134,6 @@ public class sujidade {
                 }
         }
     }
-
-    
 
     public static boolean isNumero(String palavra) {
         try {
@@ -155,3 +149,7 @@ public class sujidade {
     }
 
 }
+/*
+
+
+*/

@@ -5,113 +5,32 @@ import java.util.List;
 
 public class AnalisadorToken {
 
-    
-     public  List<String> divid(String texto) {
-        List<String> partes = new ArrayList<>();
+ public ArrayList<tabelaToken> dividirTextoEmLinhas(String textoTextArea) {
+    ArrayList<tabelaToken> b = new ArrayList<>();
+    if (textoTextArea != null && !textoTextArea.isEmpty()) {
+        String[] linhasTexto = textoTextArea.split("\\n");
         int numeroLinha = 1;
-        int inicioPalavra = 0;
-
-        for (int i = 0; i < texto.length(); i++) {
-            char caractere = texto.charAt(i);
-
-            if (caractere == '\n') {
-                numeroLinha++;
-                inicioPalavra = i + 1; // Avança o início da próxima palavra
-            } else if (Character.isWhitespace(caractere)) {
-                if (i > inicioPalavra) {
-                    partes.add(texto.substring(inicioPalavra, i) + ", Linha: " + numeroLinha);
-                }
-                inicioPalavra = i + 1; // Avança o início da próxima palavra
-            } else if (i == texto.length() - 1) { // Último caractere
-                partes.add(texto.substring(inicioPalavra, i + 1) + ", Linha: " + numeroLinha);
-            }
-        }
-
-        return partes;
-    }
-     
-     public  void analisarCodigoFonte(List<String> codigoFonte) {
-        List<String> tokens = new ArrayList<>();
-        int numeroLinha = 1;
-
-        for (String palavra : codigoFonte) {
-            if (palavra.equals("\n")) {
-                numeroLinha++;
-            } else if (isDelimitador(palavra) || isOperadorAritmetico(palavra) || isOperadorRelacional(palavra) || isCaracterEspecial(palavra)) {
-                adicionarToken(tokens, palavra, numeroLinha);
-            } else {
-                adicionarToken(tokens, palavra, numeroLinha);
-            }
-        }
-
-        for (String token : tokens) {
-            System.out.println("Token: " + token);
+        for (String linha : linhasTexto) {
+            b.addAll(dividirCodigo(linha, numeroLinha));
+            numeroLinha++;
         }
     }
+    return b;
+}
 
-        
-    
-
-    public static void adicionarToken(List<String> tokens, String lexema, int numeroLinha) {
-        tokens.add("Token: " + lexema + " Lexema: "+identificarToken(lexema) +" "+"Linha: "+ numeroLinha);
+public ArrayList<tabelaToken> dividirCodigo(String texto, int numeroLinha) {
+    ArrayList<tabelaToken> b = new ArrayList<>();
+    String[] partes = texto.split("\\s+");
+    for (String palavra : partes) {
+        String tipoPalavra = verificarTipoPalavra(palavra);
+        tabelaToken linha = new tabelaToken(numeroLinha, palavra, tipoPalavra, palavra);
+        b.add(linha);
     }
-    
-    
-
-    private static boolean isDelimitador(String caractere) {
-        for (String delimitador : PalavrasReservadas.delimitadores) {
-            if (delimitador.equals(caractere)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean isOperadorAritmetico(String caractere) {
-        for (String operador : PalavrasReservadas.operadoresAritmeticos) {
-            if ( operador.equals(caractere)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean isOperadorRelacional(String caractere) {
-        for (String operador : PalavrasReservadas.operadoreRelacional) {
-            if (operador.equals(caractere)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean isCaracterEspecial(String caractere) {
-        for (String especial : PalavrasReservadas.caracteresEspeciais) {
-            if (especial.equals(caractere)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @SuppressWarnings("unlikely-arg-type")
-    public static boolean isSinalAtrimetrico(String a) {
-        return a.equals(PalavrasReservadas.sinalAtribuicao);
-    }
-
-    @SuppressWarnings("unused")
-    private static void adicionarToken(List<String> tokens, String token) {
-        if (!token.isEmpty()) {
-            tokens.add(token);
-        }
-    }
+    return b;
+}
 
 
-    /*
-        Esse metodo recebe um token (Palavra) como parametro e retorna o tipo correspondente com base na categoria do token.
-     */
-    public static String identificarToken(String token) {
-
+    public static String verificarTipoPalavra(String token) {
         switch (token) {
 
             // Operadores aritméticos
@@ -119,7 +38,7 @@ public class AnalisadorToken {
             case Tokens.token_subtraccao:
             case Tokens.token_multiplicacao:
             case Tokens.token_divisao:
-                return "Operador Aritmético";
+                return "Operador Aritmetico";
 
             // Operadores relacionais
             case Tokens.token_igual:
@@ -145,7 +64,7 @@ public class AnalisadorToken {
             case Tokens.token_or:
             case Tokens.token_and:
             case Tokens.token_not:
-                return "Operador Lógico";
+                return "Operador Logico";
 
             // Tokens de controle de fluxo
             case Tokens.token_if:
@@ -167,6 +86,8 @@ public class AnalisadorToken {
             // Tokens de tipos de dados
             case Tokens.token_true:
             case Tokens.token_false:
+                return "Valor boleano";
+
             case Tokens.token_char:
             case Tokens.token_integer:
             case Tokens.token_boolean:
@@ -182,11 +103,39 @@ public class AnalisadorToken {
             case Tokens.token_function:
             case Tokens.token_procedure:
             case Tokens.token_program:
-                return "Declaração";
+                return "Declaracao";
 
-            // Se não for nenhum dos tipos acima, é um identificador
             default:
-                return "Identificador";
+                if (isNumero(token)) {
+                    return "Digito";
+                } else {
+                    if (isSinalAtribuicao(token)) {
+                        return "Sinal de atribuicacao";
+                    } else {
+                        for (int i = 0; i < token.length(); i++) {
+                            char c = token.charAt(i);
+
+                            if (Character.isLetter(c)) {
+                                return "Identificador";
+                            }
+                        }
+
+                        return "Erro";
+                    }
+                }
         }
+    }
+
+    public static boolean isNumero(String palavra) {
+        try {
+            Integer.parseInt(palavra);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static boolean isSinalAtribuicao(String palavra) {
+        return palavra.equals(":=");
     }
 }
