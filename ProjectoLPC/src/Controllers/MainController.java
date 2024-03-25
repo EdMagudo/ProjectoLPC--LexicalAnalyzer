@@ -152,7 +152,13 @@ public class MainController implements Initializable {
         int linha = 1;
         char c = '\n';
         for (char caracter : texto.toCharArray()) {
-            if (Character.isWhitespace(caracter)) {
+            String pal = caracter + "";
+            if (Character.isWhitespace(caracter) ||
+                    AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Aritmetico" ||
+                    AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Relacional" ||
+                    AnalisadorToken.verificarTipoPalavra(caracter + "") == "Delimitador" ||
+                    AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Logico") {
+
                 if (c == caracter) {
                     linha++;
                 }
@@ -161,12 +167,22 @@ public class MainController implements Initializable {
                     palavra.setLength(0);
                     numLinha.add(linha);
                 }
+                if (AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Aritmetico" ||
+                        AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Relacional" ||
+                        AnalisadorToken.verificarTipoPalavra(caracter + "") == "Delimitador" ||
+                        AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Logico") {
+                    palavras.add(caracter + "");
+                    numLinha.add(linha);
+                }
             } else {
+
                 palavra.append(caracter);
             }
         }
 
-        if (palavra.length() > 0) {
+        if (palavra.length() > 0)
+
+        {
             palavras.add(palavra.toString());
             numLinha.add(linha);
         }
