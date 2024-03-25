@@ -94,10 +94,12 @@ public class AnalisadorToken {
         return false;
     }
 
+    @SuppressWarnings("unlikely-arg-type")
     public static boolean isSinalAtrimetrico(String a) {
         return a.equals(PalavrasReservadas.sinalAtribuicao);
     }
 
+    @SuppressWarnings("unused")
     private static void adicionarToken(List<String> tokens, String token) {
         if (!token.isEmpty()) {
             tokens.add(token);
