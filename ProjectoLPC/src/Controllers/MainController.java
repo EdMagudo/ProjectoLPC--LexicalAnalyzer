@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -20,13 +21,13 @@ public class MainController implements Initializable {
     private TextArea campo;
 
     @FXML
-    private TableColumn<?, ?> erro;
+    private TableColumn<String, String> erro;
 
     @FXML
-    private TableColumn<?, ?> lexema;
+    private TableColumn<String, String> lexema;
 
     @FXML
-    private TableColumn<?, ?> linha;
+    private TableColumn<String, String> linha;
 
     @FXML
     private ImageView new_File;
@@ -44,13 +45,13 @@ public class MainController implements Initializable {
     private ImageView settings;
 
     @FXML
-    private TableView<?> tabela;
+    private TableView<String> tabela;
 
     @FXML
     private Text time;
 
     @FXML
-    private TableColumn<?, ?> token;
+    private TableColumn<String, String> token;
 
     @FXML
     private Button touch;
@@ -62,47 +63,86 @@ public class MainController implements Initializable {
 
     int nrParagrafos = 0;
     String paragrafos;
-    String palavras;
+    String[] paragrafosArray;
+    String[] palavras;
+    int[] linhas_por_palavra;
 
     @FXML
     void escrevendoCodigo(KeyEvent event) {
         ObservableList<CharSequence> list = campo.getParagraphs();
-        paragrafos = campo.getParagraphs().toString();
+        paragrafos = campo.getText();
         nrParagrafos = list.size();
+        linhas_por_palavra = new int[nrParagrafos];
+        numerar(paragrafos.toString());
+        /*
+         * palavras = campo.getParagraphs().toArray();
+         * cont_palavra(paragrafos);
+         */
+        System.out.println("--------------------------------------------------------------------");
         System.out.println(paragrafos);
+        System.out.println(linhas_por_palavra[0]);
+        System.out.println("--------------------------------------------------------------------");
+        for (int i = 0; i < paragrafos.length(); i++) {
+            System.out.println(paragrafos.charAt(i));
+        }
+        System.out.println("--------------------------------------------------------------------");
     }
 
     @FXML
     void create(MouseEvent event) {
-
+        System.out.println("1");
     }
 
     @FXML
     void openFloder(MouseEvent event) {
-
-    }
-
-    @FXML
-    void runn(MouseEvent event) {
+        System.out.println("2");
 
     }
 
     @FXML
     void save(MouseEvent event) {
+        System.out.println("3");
+    }
 
+    @FXML
+    void runn(MouseEvent event) {
+        tabela.setItems(null);
+
+    }
+
+    @FXML
+    void configurar(MouseEvent event) {
     }
 
     @FXML
     void trocarImagens(MouseEvent event) {
-
+        ImageView imagem = ((ImageView) event.getSource());
+        imagem.setImage(new Image("/Image/" + imagem.getId() + "1.png"));
     }
 
     @FXML
     void voltarImagens(MouseEvent event) {
-
+        ImageView imagem = ((ImageView) event.getSource());
+        imagem.setImage(new Image("/Image/" + imagem.getId() + ".png"));
     }
 
-    public String jump(String paragrafo) {
+    public void numerar(String string) {
+        int nrPorParagrafos = 1;
+        int y = 0;
+        for (int i = 0; i < string.length(); i++) {
+            if (string.charAt(i) == ',') {
+                System.out.print(nrPorParagrafos);
+                linhas_por_palavra[y] = nrPorParagrafos;
+                nrPorParagrafos++;
+            } else if (string.charAt(i) == ' ') {
+                y++;
+            }
+        }
+    }
+
+    public String[] stringEmArray(String string){
+        for (int i = 0; i < string.length(); i++) {
+        }
         return null;
     }
 
