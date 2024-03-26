@@ -1,27 +1,31 @@
 package Controllers;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import javax.swing.JFileChooser;
-
 import DAO.AnalisadorToken;
 import DAO.TabelaToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 
 public class MainController implements Initializable {
 
@@ -65,6 +69,7 @@ public class MainController implements Initializable {
     private Button touch;
 
     ObservableList<TabelaToken> tokensList = FXCollections.observableArrayList();
+    FileChooser fileChooser = new FileChooser();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -72,6 +77,9 @@ public class MainController implements Initializable {
         token.setCellValueFactory(new PropertyValueFactory<TabelaToken, String>("token"));
         lexema.setCellValueFactory(new PropertyValueFactory<TabelaToken, String>("lexema"));
         erro.setCellValueFactory(new PropertyValueFactory<TabelaToken, String>("erro"));
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + File.separator + "Desktop"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Ficheiro de Texto", "*.txt"),
+                new FileChooser.ExtensionFilter("Ficheiro de Pascal", "*.pas"));
     }
 
     String paragrafos;
@@ -80,25 +88,69 @@ public class MainController implements Initializable {
     @SuppressWarnings("rawtypes")
     List linhas_por_palavra;
 
+    String fileIn = new String();
+
     @FXML
     void create(MouseEvent event) {
-        JFileChooser fileChooser = new JFileChooser();
-
+        fileChooser.setTitle("Criar um ficheiro");
+        fileIn = fileChooser.showSaveDialog(null).getAbsolutePath();
+        File file = new File(fileIn);
+        String texto = campo.getText();
+        try {
+            file.createNewFile();
+            FileWriter writer = new FileWriter(fileIn);
+            writer.write(texto);
+            writer.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        campo.setText("");
     }
 
     @FXML
-    void openFloder(MouseEvent event) {
-        System.out.println("2");
+    void openFloder(MouseEvent event) throws IOException {
+        fileChooser.setTitle("Abrir um ficheiro");
+        try {
+            fileIn = fileChooser.showOpenDialog(null).getAbsolutePath();
+            FileReader reader = new FileReader(fileIn);
+            int data = reader.read();
+            StringBuilder texto = new StringBuilder();
+            while (data != -1) {
+                texto.append((char) data);
+                data = reader.read();
+            }
+            reader.close();
+            campo.setText(texto.toString());
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
     }
 
     @FXML
     void save(MouseEvent event) {
-        System.out.println("3");
+        if (fileIn.equals("")) {
+            fileChooser.setTitle("Guardar um ficheiro");
+            fileIn = fileChooser.showSaveDialog(null).getAbsolutePath();
+        }
+        String texto = campo.getText();
+        try {
+            FileWriter writer = new FileWriter(fileIn);
+            writer.write(texto);
+            writer.close();
+            Alert alerta = new Alert(AlertType.CONFIRMATION);
+        } catch (IOException e) {
+            Alert alerta = new Alert(AlertType.ERROR);
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void runn(MouseEvent event) {
+        long inicio = System.currentTimeMillis();
         tabela.getItems().clear();
         paragrafos = campo.getText();
         palavras = transfomarPalavras(paragrafos);
@@ -121,6 +173,8 @@ public class MainController implements Initializable {
             tokensList.add(token);
         }
         tabela.setItems(tokensList);
+        long fim = System.currentTimeMillis();
+        time.setText((fim - inicio) + (" mls"));
     }
 
     @FXML
@@ -145,37 +199,41 @@ public class MainController implements Initializable {
         return null;
     }
 
+    List<Integer> nao_corta = new ArrayList<>();
+
     public String[] transfomarPalavras(String texto) {
+        nao_corta = new ArrayList<>();
         List<String> palavras = new ArrayList<>();
         StringBuilder palavra = new StringBuilder();
         List<Integer> numLinha = new ArrayList<>();
+
         int linha = 1;
         char c = '\n';
+        boolean env = false;
         for (char caracter : texto.toCharArray()) {
-            String pal = caracter + "";
-            if (Character.isWhitespace(caracter) ||
-                    AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Aritmetico" ||
+            if (AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Aritmetico" ||
                     AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Relacional" ||
                     AnalisadorToken.verificarTipoPalavra(caracter + "") == "Delimitador" ||
                     AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Logico") {
-
-                if (c == caracter) {
-                    linha++;
-                }
+                if (env)
+                    nao_corta.add(0);
+                else
+                    nao_corta.add(1);
+                env = false;
+                palavras.add(caracter + "");
+                numLinha.add(linha);
+            } else if (Character.isWhitespace(caracter)) {
                 if (palavra.length() > 0) {
                     palavras.add(palavra.toString());
                     palavra.setLength(0);
                     numLinha.add(linha);
                 }
-                if (AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Aritmetico" ||
-                        AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Relacional" ||
-                        AnalisadorToken.verificarTipoPalavra(caracter + "") == "Delimitador" ||
-                        AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Logico") {
-                    palavras.add(caracter + "");
-                    numLinha.add(linha);
+                env = true;
+                if (c == caracter) {
+                    linha++;
                 }
-            } else {
 
+            } else {
                 palavra.append(caracter);
             }
         }
@@ -186,9 +244,28 @@ public class MainController implements Initializable {
             palavras.add(palavra.toString());
             numLinha.add(linha);
         }
-
         linhas_por_palavra = numLinha;
+        concatenar(palavras);
         return palavras.toArray(new String[palavras.size()]);
+    }
+
+    public void concatenar(List<String> list) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.size() != i + 1)
+                if ((nao_corta.get(i) != 1 && nao_corta.get(i + 1) != 0)
+                        && linhas_por_palavra.get(i) == linhas_por_palavra.get(i + 1) && ((((":".equals(list.get(i))
+                                ||
+                                "<".equals(list.get(i))
+                                ||
+                                ">".equals(list.get(i))) &&
+                                "=".equals(list.get(i + 1))) ||
+                                ("<".equals(list.get(i)) && ">".equals(list.get(i + 1)))))) {
+                    nao_corta.remove(i + 1);
+                    list.set(i, list.get(i) + list.remove(i + 1));
+                    linhas_por_palavra.remove(i);
+                }
+        }
+        System.out.println(nao_corta);
     }
 
 }

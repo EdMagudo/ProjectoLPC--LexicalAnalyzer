@@ -104,7 +104,7 @@ public class test extends javax.swing.JFrame {
             Object[] dad = {
                     teste.getNumero_linha(),
                     teste.getToken(),
-                    teste.getTipoToken(),
+                    teste.getLexema(),
                     teste.getLexema(),
             };
             modelo.addRow(dad);
