@@ -101,7 +101,11 @@ public class MainController implements Initializable {
             FileWriter writer = new FileWriter(fileIn);
             writer.write(texto);
             writer.close();
+            Alert alerta = new Alert(AlertType.CONFIRMATION, "Criado com sucesso");
+            alerta.showAndWait();
         } catch (IOException e) {
+            Alert alerta = new Alert(AlertType.ERROR, "Ocorreu um erro");
+            alerta.showAndWait();
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -140,9 +144,11 @@ public class MainController implements Initializable {
             FileWriter writer = new FileWriter(fileIn);
             writer.write(texto);
             writer.close();
-            Alert alerta = new Alert(AlertType.CONFIRMATION);
+            Alert alerta = new Alert(AlertType.CONFIRMATION, "Salvo com sucesso");
+            alerta.showAndWait();
         } catch (IOException e) {
-            Alert alerta = new Alert(AlertType.ERROR);
+            Alert alerta = new Alert(AlertType.ERROR, "Ocorreu um erro");
+            alerta.showAndWait();
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
