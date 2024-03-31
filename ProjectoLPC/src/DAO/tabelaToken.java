@@ -1,17 +1,17 @@
 package DAO;
 
-public class TabelaToken {
+public class tabelaToken {
 
     public Integer numero_linha;
     public String token;
     public String lexema;
     public String erro;
 
-    public TabelaToken(int numero_linha, String token, String lexema, String erro) {
+    public tabelaToken(int numero_linha, String token, String lexema) {
         this.numero_linha = numero_linha;
         this.token = token;
         this.lexema = lexema;
-        this.erro = erro;
+        
     }
 
     public String getErro() {

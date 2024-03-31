@@ -32,13 +32,14 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -55,40 +56,45 @@
                   </TextArea>
                   <Pane layoutX="772.0" layoutY="9.0" prefHeight="50.0" prefWidth="688.0" style="-fx-background-color: #6F6F6F;">
                      <children>
-                        <ImageView fx:id="new_File" fitHeight="31.0" fitWidth="31.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="settings" fitHeight="37.0" fitWidth="31.0" layoutX="643.0" layoutY="10.0" onMouseClicked="#configurar" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../Image/new-document.png" />
+                              <Image url="@../Image/settings.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="open_Folder" fitHeight="37.0" fitWidth="58.0" layoutX="65.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Image/folder.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="save" fitHeight="37.0" fitWidth="31.0" layoutX="125.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Image/diskette.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="run" fitHeight="37.0" fitWidth="31.0" layoutX="184.0" layoutY="8.0"  pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Image/run.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="settings" fitHeight="37.0" fitWidth="31.0" layoutX="647.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Image/setting.png" />
-                           </image>
-                        </ImageView>
-                        <Button fx:id="touch" layoutX="174.0" layoutY="-4.0" mnemonicParsing="false" onAction="#runn" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
+                        <HBox layoutX="14.0" layoutY="7.0" spacing="40.0">
+                           <children>
+                              <ImageView fx:id="new_File" fitHeight="31.0" fitWidth="31.0" onMouseClicked="#create" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Image/new_File.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="open_Folder" fitHeight="37.0" fitWidth="58.0" onMouseClicked="#openFloder" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Image/open_Folder.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="save" fitHeight="37.0" fitWidth="31.0" onMouseClicked="#save" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Image/save.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="run" fitHeight="37.0" fitWidth="31.0" onMouseClicked="#runn" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Image/run.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </Pane>
                   <TableView fx:id="tabela" layoutX="771.0" layoutY="76.0" prefHeight="647.0" prefWidth="688.0">
                     <columns>
-                      <TableColumn fx:id="linha" minWidth="34.39996337890625" prefWidth="61.5999755859375" text="Linha" />
-                      <TableColumn fx:id="token" minWidth="50.0" prefWidth="218.40008544921875" text="Token" />
-                        <TableColumn fx:id="lexema" minWidth="50.0" prefWidth="200.0" text="Lexema" />
-                        <TableColumn fx:id="erro" minWidth="50.0" prefWidth="200.0" text="Erro" />
+                      <TableColumn fx:id="linha" minWidth="34.39996337890625" prefWidth="70.0" text="Linha" />
+                      <TableColumn fx:id="token" minWidth="50.0" prefWidth="350.0" text="Token" />
+                        <TableColumn fx:id="lexema" minWidth="50.0" prefWidth="264.0" text="Lexema" />
                     </columns>
                   </TableView>
                   <Pane layoutX="772.0" layoutY="732.0" prefHeight="37.0" prefWidth="688.0" style="-fx-background-color: #6F6F6F;">

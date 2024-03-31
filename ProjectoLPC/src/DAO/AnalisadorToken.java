@@ -1,34 +1,121 @@
 package DAO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AnalisadorToken {
 
-    public ArrayList<TabelaToken> dividirTextoEmLinhas(String textoTextArea) {
-        ArrayList<TabelaToken> b = new ArrayList<>();
+    public List<String> dividirTextoEmLinhas(String textoTextArea) {
+        List<String> linhas = new ArrayList<>();
         if (textoTextArea != null && !textoTextArea.isEmpty()) {
             String[] linhasTexto = textoTextArea.split("\\n");
-            int numeroLinha = 1;
+
             for (String linha : linhasTexto) {
-                b.addAll(dividirCodigo(linha, numeroLinha));
-                numeroLinha++;
+                linhas.add(linha);
+
             }
         }
-        return b;
+        return linhas;
     }
 
-    public ArrayList<TabelaToken> dividirCodigo(String texto, int numeroLinha) {
-        ArrayList<TabelaToken> b = new ArrayList<>();
-        String[] partes = texto.split("\\s+");
-        for (String palavra : partes) {
-            String tipoPalavra = verificarTipoPalavra(palavra);
-            TabelaToken linha = new TabelaToken(numeroLinha, palavra, tipoPalavra, palavra);
-            b.add(linha);
+    //Metodo para dividir e validar caracteres 
+    public static List<String> analisarLexicamente(String linha) {
+        List<String> partes = new ArrayList<>();
+        int i = 0;
+
+        while (i < linha.length()) {
+            // Ignora espaços em branco
+            while (i < linha.length() && Character.isWhitespace(linha.charAt(i))) {
+                i++;
+            }
+
+            if (i == linha.length()) {
+                break;
+            }
+
+            // Símbolos especiais
+            char c = linha.charAt(i);
+            if (c == '(' || c == ')' || c == '[' || c == ']') {
+                partes.add(Character.toString(c));
+                i++;
+                continue;
+            }
+
+            // Operadores
+            if (c == '+' || c == '-' || c == '*' || c == ';') {
+                partes.add(Character.toString(c));
+                i++;
+                continue;
+            }
+
+            if (c == '<') {
+                if (i + 1 < linha.length() && linha.charAt(i + 1) == '>') {
+                    partes.add("<>");
+                    i += 2;
+                    continue;
+                } else {
+                    partes.add(Character.toString(c));
+                }
+            } else {
+
+                // Atribuição
+                if (c == ':') {
+                    if (i + 1 < linha.length() && linha.charAt(i + 1) == '=') {
+                        partes.add(":=");
+                        i += 2;
+                        continue;
+                    } else {
+                        partes.add(Character.toString(c));
+                        i++;
+                        continue;
+                    }
+                } else // Identificadores e palavras-chave
+                if (Character.isLetter(c)) {
+                    int fimPalavra = i + 1;
+                    while (fimPalavra < linha.length() && (Character.isLetterOrDigit(linha.charAt(fimPalavra)) || linha.charAt(fimPalavra) == '_')) {
+                        fimPalavra++;
+                    }
+                    String palavra = linha.substring(i, fimPalavra);
+                    partes.add(palavra);
+                    i = fimPalavra;
+                    continue;
+                } else // Números
+                if (Character.isDigit(c)) {
+                    int fimNumero = i + 1;
+                    while (fimNumero < linha.length() && Character.isDigit(linha.charAt(fimNumero))) {
+                        fimNumero++;
+                    }
+                    String numero = linha.substring(i, fimNumero);
+                    partes.add(numero);
+                    i = fimNumero;
+                    continue;
+                } else // Delimitadores
+                if (c == '/' || c == ',') {
+                    partes.add(Character.toString(c));
+                    i++;
+                    continue;
+                } else //erro para string que comeca com _
+                //((c == '_')|| (c == '@') || c == '!') 
+                if ((c == '_') || (c == '@') || (c == '!') || (c == '?')) {
+                    int fimPalavra = i + 1;
+                    while (fimPalavra < linha.length() && (Character.isLetterOrDigit(linha.charAt(fimPalavra)) || linha.charAt(fimPalavra) == '_')) {
+                        fimPalavra++;
+                    }
+                    String palavra = linha.substring(i, fimPalavra);
+                    partes.add(palavra);
+                    i = fimPalavra;
+                    continue;
+                } else {
+                    partes.add(Character.toString(c));
+                    i++;
+                }
+            }
         }
-        return b;
+
+        return partes;
     }
 
-    public static String verificarTipoPalavra(String token) {
+    public String verificarTipoPalavra(String token) {
         switch (token) {
 
             // Operadores aritméticos
@@ -103,6 +190,9 @@ public class AnalisadorToken {
             case Tokens.token_program:
                 return "Declaracao";
 
+            case Tokens.token_SinalAtribuicao:
+                return "Sinal Atribuicao";
+
             default:
                 if (isNumero(token)) {
                     return "Digito";
@@ -110,18 +200,22 @@ public class AnalisadorToken {
                     if (isSinalAtribuicao(token)) {
                         return "Sinal de atribuicacao";
                     } else {
-                        for (int i = 0; i < token.length(); i++) {
-                            char c = token.charAt(i);
-
-                            if (Character.isLetter(c)) {
-                                return "Identificador";
-                            }
+                        if ((Identificador(token))) {
+                            return "Identificador";
                         }
 
                         return "Erro";
                     }
                 }
         }
+    }
+
+    public static boolean Identificador(String palavra) {
+        if (palavra.isEmpty() || (!Character.isLetter(palavra.charAt(0)) && (palavra.charAt(0) != '_' || palavra.charAt(0) != '@'))) {
+            return false;
+        }
+
+        return true;
     }
 
     public static boolean isNumero(String palavra) {

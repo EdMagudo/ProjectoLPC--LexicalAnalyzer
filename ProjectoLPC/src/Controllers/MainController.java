@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 import javax.swing.JFileChooser;
 
 import DAO.AnalisadorToken;
-import DAO.TabelaToken;
+import DAO.tabelaToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javax.swing.JOptionPane;
 
 public class MainController implements Initializable {
 
@@ -29,13 +30,13 @@ public class MainController implements Initializable {
     private TextArea campo;
 
     @FXML
-    private TableColumn<TabelaToken, String> erro;
+    private TableColumn<tabelaToken, String> erro;
 
     @FXML
-    private TableColumn<TabelaToken, String> lexema;
+    private TableColumn<tabelaToken, String> lexema;
 
     @FXML
-    private TableColumn<TabelaToken, Integer> linha;
+    private TableColumn<tabelaToken, Integer> linha;
 
     @FXML
     private ImageView new_File;
@@ -53,30 +54,27 @@ public class MainController implements Initializable {
     private ImageView settings;
 
     @FXML
-    private TableView<TabelaToken> tabela;
+    private TableView<tabelaToken> tabela;
 
     @FXML
     private Text time;
 
     @FXML
-    private TableColumn<TabelaToken, String> token;
+    private TableColumn<tabelaToken, String> token;
 
     @FXML
     private Button touch;
 
-    ObservableList<TabelaToken> tokensList = FXCollections.observableArrayList();
+    ObservableList<tabelaToken> tokensList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        linha.setCellValueFactory(new PropertyValueFactory<TabelaToken, Integer>("numero_linha"));
-        token.setCellValueFactory(new PropertyValueFactory<TabelaToken, String>("token"));
-        lexema.setCellValueFactory(new PropertyValueFactory<TabelaToken, String>("lexema"));
-        erro.setCellValueFactory(new PropertyValueFactory<TabelaToken, String>("erro"));
+        tabela.getItems().clear();
     }
 
     String paragrafos;
     String[] palavras;
-    List<TabelaToken> lisTabelaTokens;
+    List<tabelaToken> lisTabelaTokens;
     @SuppressWarnings("rawtypes")
     List linhas_por_palavra;
 
@@ -99,33 +97,39 @@ public class MainController implements Initializable {
 
     @FXML
     void runn(MouseEvent event) {
-        tabela.getItems().clear();
-        paragrafos = campo.getText();
-        palavras = transfomarPalavras(paragrafos);
+        
+        int tempo1 = (int) System.currentTimeMillis();
+        String texto = campo.getText();
 
-        for (int i = 0; i < palavras.length; i++) {
-            String tokene = null;
-            String erro = "Sem erros";
+        ObservableList<tabelaToken> tokensList = FXCollections.observableArrayList();
+        AnalisadorToken a = new AnalisadorToken();
+        List<tabelaToken> h = new ArrayList<>();
+        tabelaToken f;
+        List<String> b = a.dividirTextoEmLinhas(campo.getText());
+        int numeroLinha = 0;
+        for (String c : b) {
+            List<String> palavra = a.analisarLexicamente(c);
+            numeroLinha++;
+            for (String tokens : palavra) {
 
-            tokene = (AnalisadorToken.verificarTipoPalavra(palavras[i]));
-            if (tokene == "Erro") {
-                erro = tokene;
-                tokene = null;
+                f = new tabelaToken(numeroLinha, new AnalisadorToken().verificarTipoPalavra(tokens), tokens);
+                tokensList.add(f);
+                System.out.println(f.toString());
             }
-            TabelaToken token = new TabelaToken(
-                    (int) linhas_por_palavra.get(i),
-                    tokene,
-                    palavras[i],
-                    erro);
-
-            tokensList.add(token);
         }
-        tabela.setItems(tokensList);
-    }
 
-    @FXML
-    void configurar(MouseEvent event) {
+        linha.setCellValueFactory(new PropertyValueFactory<tabelaToken, Integer>("numero_linha"));
+        token.setCellValueFactory(new PropertyValueFactory<tabelaToken, String>("token"));
+        lexema.setCellValueFactory(new PropertyValueFactory<tabelaToken, String>("lexema"));
+
+        tabela.setItems(tokensList);
+        int tempo2 =(int) System.currentTimeMillis();
+        
+        
+        time.setText((tempo2-tempo1) + " " + "mls");
     }
+    
+    
 
     @FXML
     void trocarImagens(MouseEvent event) {
@@ -145,50 +149,12 @@ public class MainController implements Initializable {
         return null;
     }
 
-    public String[] transfomarPalavras(String texto) {
-        List<String> palavras = new ArrayList<>();
-        StringBuilder palavra = new StringBuilder();
-        List<Integer> numLinha = new ArrayList<>();
-        int linha = 1;
-        char c = '\n';
-        for (char caracter : texto.toCharArray()) {
-            String pal = caracter + "";
-            if (Character.isWhitespace(caracter) ||
-                    AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Aritmetico" ||
-                    AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Relacional" ||
-                    AnalisadorToken.verificarTipoPalavra(caracter + "") == "Delimitador" ||
-                    AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Logico") {
-
-                if (c == caracter) {
-                    linha++;
-                }
-                if (palavra.length() > 0) {
-                    palavras.add(palavra.toString());
-                    palavra.setLength(0);
-                    numLinha.add(linha);
-                }
-                if (AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Aritmetico" ||
-                        AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Relacional" ||
-                        AnalisadorToken.verificarTipoPalavra(caracter + "") == "Delimitador" ||
-                        AnalisadorToken.verificarTipoPalavra(caracter + "") == "Operador Logico") {
-                    palavras.add(caracter + "");
-                    numLinha.add(linha);
-                }
-            } else {
-
-                palavra.append(caracter);
-            }
-        }
-
-        if (palavra.length() > 0)
-
-        {
-            palavras.add(palavra.toString());
-            numLinha.add(linha);
-        }
-
-        linhas_por_palavra = numLinha;
-        return palavras.toArray(new String[palavras.size()]);
+    @FXML
+    void configurar(MouseEvent event) {
+        JOptionPane.showMessageDialog(null,
+                "Criado por:\nEdilton Idrice Magudo\nIvania Perce Chirindza\nKelton Gerlado Manjate\n\nLexicalAnalyzer V.1.0",
+                "Developers",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
 }

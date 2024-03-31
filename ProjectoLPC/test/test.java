@@ -1,7 +1,8 @@
 
 import DAO.AnalisadorToken;
-import DAO.TabelaToken;
+import DAO.tabelaToken;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class test extends javax.swing.JFrame {
@@ -91,22 +92,29 @@ public class test extends javax.swing.JFrame {
      */
     public void listar() {
 
-        ArrayList<TabelaToken> a = new AnalisadorToken().dividirTextoEmLinhas(campo.getText());
-
-        if (a == null)
-            System.out.println("nullo");
-        else
-            System.out.println(a);
+        AnalisadorToken a = new AnalisadorToken();
+        List<tabelaToken> h = new ArrayList<>();
+        tabelaToken f;
+        List<String> b = a.dividirTextoEmLinhas(campo.getText());
+       int g = 0;
+        for (String c : b) {
+            List<String> d = a.analisarLexicamente(c);
+            g++;
+            for (String e : d) {
+                
+                f = new tabelaToken(g,  new AnalisadorToken().verificarTipoPalavra(e), e);
+                h.add(f);
+                System.out.println(f.toString());
+            }
+        }
 
         modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-        for (TabelaToken teste : a) {
+        for (tabelaToken teste : h) {
             Object[] dad = {
-                    teste.getNumero_linha(),
-                    teste.getToken(),
-                    teste.getTipoToken(),
-                    teste.getLexema(),
-            };
+                teste.getNumero_linha(),
+                teste.getToken(),
+                teste.getLexema(),};
             modelo.addRow(dad);
 
         }

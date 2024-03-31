@@ -59,7 +59,9 @@ public class Tokens {
     public static final String token_char = "char";
     public static final String token_integer = "integer";
     public static final String token_boolean = "boolean";
-
+    
+    public static final String token_SinalAtribuicao = ":=";
+   
     // Token de erro
     public static final String token_erro = "error";
   
