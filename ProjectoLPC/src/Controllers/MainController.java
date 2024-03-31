@@ -251,11 +251,15 @@ public class MainController implements Initializable {
             numLinha.add(linha);
         }
         linhas_por_palavra = numLinha;
+        System.out.println(nao_corta.size());
+        System.out.println(linhas_por_palavra.size());
         concatenar(palavras);
         return palavras.toArray(new String[palavras.size()]);
     }
 
     public void concatenar(List<String> list) {
+        System.out.println(nao_corta);
+
         for (int i = 0; i < list.size(); i++) {
             if (list.size() != i + 1)
                 if ((nao_corta.get(i) != 1 && nao_corta.get(i + 1) != 0)
@@ -266,7 +270,7 @@ public class MainController implements Initializable {
                                 ">".equals(list.get(i))) &&
                                 "=".equals(list.get(i + 1))) ||
                                 ("<".equals(list.get(i)) && ">".equals(list.get(i + 1)))))) {
-                    nao_corta.remove(i + 1);
+                    nao_corta.remove(i);
                     list.set(i, list.get(i) + list.remove(i + 1));
                     linhas_por_palavra.remove(i);
                 }
