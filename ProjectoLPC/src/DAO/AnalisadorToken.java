@@ -35,14 +35,7 @@ public class AnalisadorToken {
 
             // Símbolos especiais
             char c = linha.charAt(i);
-            if (c == '(' || c == ')' || c == '[' || c == ']') {
-                partes.add(Character.toString(c));
-                i++;
-                continue;
-            }
-
-            // Operadores
-            if (c == '+' || c == '-' || c == '*' || c == ';') {
+            if (c == '(' || c == ')' || c == '[' || c == ']' || c == '/' || c == ',' || c == '+' || c == '-' || c == '*' || c == ';') {
                 partes.add(Character.toString(c));
                 i++;
                 continue;
@@ -55,10 +48,11 @@ public class AnalisadorToken {
                     continue;
                 } else {
                     partes.add(Character.toString(c));
+                    i++;
+                    continue;
                 }
             } else {
 
-                // Atribuição
                 if (c == ':') {
                     if (i + 1 < linha.length() && linha.charAt(i + 1) == '=') {
                         partes.add(":=");
@@ -89,13 +83,8 @@ public class AnalisadorToken {
                     partes.add(numero);
                     i = fimNumero;
                     continue;
-                } else // Delimitadores
-                if (c == '/' || c == ',') {
-                    partes.add(Character.toString(c));
-                    i++;
-                    continue;
-                } else //erro para string que comeca com _
-                //((c == '_')|| (c == '@') || c == '!') 
+                } else               
+                //erro para string que comeca com _ @ ! ? o token é erro
                 if ((c == '_') || (c == '@') || (c == '!') || (c == '?')) {
                     int fimPalavra = i + 1;
                     while (fimPalavra < linha.length() && (Character.isLetterOrDigit(linha.charAt(fimPalavra)) || linha.charAt(fimPalavra) == '_')) {
