@@ -9,10 +9,16 @@ import javax.swing.JFileChooser;
 
 import DAO.AnalisadorToken;
 import DAO.tabelaToken;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -22,6 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javax.swing.JOptionPane;
 
 public class MainController implements Initializable {
@@ -64,12 +71,20 @@ public class MainController implements Initializable {
 
     @FXML
     private Button touch;
+    
+     FileChooser fileChooser = new FileChooser();
 
     ObservableList<tabelaToken> tokensList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tabela.getItems().clear();
+        
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + File.separator + "Desktop"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Ficheiro de Texto", "*.txt"),
+                new FileChooser.ExtensionFilter("Ficheiro de Pascal", "*.pas"));
+
+        
     }
 
     String paragrafos;
@@ -80,19 +95,66 @@ public class MainController implements Initializable {
 
     @FXML
     void create(MouseEvent event) {
-        JFileChooser fileChooser = new JFileChooser();
-
+      fileChooser.setTitle("Criar um ficheiro");
+        fileIn = fileChooser.showSaveDialog(null).getAbsolutePath();
+        File file = new File(fileIn);
+        String texto = campo.getText();
+        try {
+            file.createNewFile();
+            FileWriter writer = new FileWriter(fileIn);
+            writer.write(texto);
+            writer.close();
+            Alert alerta = new Alert(AlertType.CONFIRMATION, "Criado com sucesso");
+            alerta.showAndWait();
+        } catch (IOException e) {
+            Alert alerta = new Alert(AlertType.ERROR, "Ocorreu um erro");
+            alerta.showAndWait();
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        campo.setText("");
     }
 
     @FXML
     void openFloder(MouseEvent event) {
-        System.out.println("2");
+        fileChooser.setTitle("Abrir um ficheiro");
+        try {
+            fileIn = fileChooser.showOpenDialog(null).getAbsolutePath();
+            FileReader reader = new FileReader(fileIn);
+            int data = reader.read();
+            StringBuilder texto = new StringBuilder();
+            while (data != -1) {
+                texto.append((char) data);
+                data = reader.read();
+            }
+            reader.close();
+            campo.setText(texto.toString());
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
     }
 
     @FXML
     void save(MouseEvent event) {
-        System.out.println("3");
+        if (fileIn.equals("")) {
+            fileChooser.setTitle("Guardar um ficheiro");
+            fileIn = fileChooser.showSaveDialog(null).getAbsolutePath();
+        }
+        String texto = campo.getText();
+        try {
+            FileWriter writer = new FileWriter(fileIn);
+            writer.write(texto);
+            writer.close();
+            Alert alerta = new Alert(AlertType.CONFIRMATION, "Salvo com sucesso");
+            alerta.showAndWait();
+        } catch (IOException e) {
+            Alert alerta = new Alert(AlertType.ERROR, "Ocorreu um erro");
+            alerta.showAndWait();
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @FXML
