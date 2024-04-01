@@ -5,7 +5,7 @@ import java.util.List;
 
 public class AnalisadorToken {
 
-    public List<String> dividirTextoEmLinhas(String textoTextArea) {
+    public List<String> QuebrarLinhas(String textoTextArea) {
         List<String> linhas = new ArrayList<>();
         if (textoTextArea != null && !textoTextArea.isEmpty()) {
             String[] linhasTexto = textoTextArea.split("\\n");
@@ -18,13 +18,11 @@ public class AnalisadorToken {
         return linhas;
     }
 
-    //Metodo para dividir e validar caracteres 
-    public static List<String> analisarLexicamente(String linha) {
+    public  List<String> QuebrarPalavras(String linha) {
         List<String> partes = new ArrayList<>();
         int i = 0;
 
         while (i < linha.length()) {
-            // Ignora espaços em branco
             while (i < linha.length() && Character.isWhitespace(linha.charAt(i))) {
                 i++;
             }
@@ -33,76 +31,115 @@ public class AnalisadorToken {
                 break;
             }
 
-            // Símbolos especiais
             char c = linha.charAt(i);
-            if (c == '(' || c == ')' || c == '[' || c == ']' || c == '/' || c == ',' || c == '+' || c == '-' || c == '*' || c == ';') {
-                partes.add(Character.toString(c));
-                i++;
-                continue;
-            }
-
-            if (c == '<') {
-                if (i + 1 < linha.length() && linha.charAt(i + 1) == '>') {
-                    partes.add("<>");
-                    i += 2;
-                    continue;
-                } else {
+            switch (c) {
+                case '(':
+                case ')':
+                case '[':
+                case ']':
+                case '/':
+                case ',':
+                case '+':
+                case '-':
+                case '*':
+                case ';':
                     partes.add(Character.toString(c));
                     i++;
-                    continue;
-                }
-            } else {
-
-                if (c == ':') {
-                    if (i + 1 < linha.length() && linha.charAt(i + 1) == '=') {
-                        partes.add(":=");
+                    break;
+                case '<':
+                    if (i + 1 < linha.length() && linha.charAt(i + 1) == '>') {
+                        partes.add("<>");
                         i += 2;
-                        continue;
                     } else {
                         partes.add(Character.toString(c));
                         i++;
-                        continue;
                     }
-                } else // Identificadores e palavras-chave
-                if (Character.isLetter(c)) {
-                    int fimPalavra = i + 1;
-                    while (fimPalavra < linha.length() && (Character.isLetterOrDigit(linha.charAt(fimPalavra)) || linha.charAt(fimPalavra) == '_')) {
-                        fimPalavra++;
+                    break;
+                case ':':
+                    if (i + 1 < linha.length() && linha.charAt(i + 1) == '=') {
+                        partes.add(":=");
+                        i += 2;
+                    } else {
+                        partes.add(Character.toString(c));
+                        i++;
                     }
-                    String palavra = linha.substring(i, fimPalavra);
-                    partes.add(palavra);
-                    i = fimPalavra;
-                    continue;
-                } else // Números
-                if (Character.isDigit(c)) {
-                    int fimNumero = i + 1;
-                    while (fimNumero < linha.length() && Character.isDigit(linha.charAt(fimNumero))) {
-                        fimNumero++;
+                    break;
+                case '\'':
+                    i = extrairTexto(linha, i, partes);
+                    break;
+                default:
+                    
+                    if (Character.isLetter(c)) {
+                        i = extrairPalavra(linha, i, partes);
+                    } else if (Character.isDigit(c)) {
+                        i = extrairNumero(linha, i, partes);
+                    } else if (c == '_' || c == '@' || c == '!' || c == '?') {
+                        i = extrairPalavraEspecial(linha, i, partes);
+                    } else {
+                        partes.add(Character.toString(c));
+                        i++;
                     }
-                    String numero = linha.substring(i, fimNumero);
-                    partes.add(numero);
-                    i = fimNumero;
-                    continue;
-                } else               
-                //erro para string que comeca com _ @ ! ? o token é erro
-                if ((c == '_') || (c == '@') || (c == '!') || (c == '?')) {
-                    int fimPalavra = i + 1;
-                    while (fimPalavra < linha.length() && (Character.isLetterOrDigit(linha.charAt(fimPalavra)) || linha.charAt(fimPalavra) == '_')) {
-                        fimPalavra++;
-                    }
-                    String palavra = linha.substring(i, fimPalavra);
-                    partes.add(palavra);
-                    i = fimPalavra;
-                    continue;
-                } else {
-                    partes.add(Character.toString(c));
-                    i++;
-                }
+                    break;
             }
         }
 
         return partes;
     }
+
+    private static int extrairPalavra(String linha, int inicio, List<String> partes) {
+        int fimPalavra = inicio + 1;
+        while (fimPalavra < linha.length() && (Character.isLetterOrDigit(linha.charAt(fimPalavra)) || linha.charAt(fimPalavra) == '_')) {
+            fimPalavra++;
+        }
+        String palavra = linha.substring(inicio, fimPalavra);
+        partes.add(palavra);
+        return fimPalavra;
+    }
+
+    private static int extrairNumero(String linha, int inicio, List<String> partes) {
+        int fimNumero = inicio + 1;
+        while (fimNumero < linha.length() && Character.isDigit(linha.charAt(fimNumero))) {
+            fimNumero++;
+        }
+        String numero = linha.substring(inicio, fimNumero);
+        partes.add(numero);
+        return fimNumero;
+    }
+
+    private static int extrairPalavraEspecial(String linha, int inicio, List<String> partes) {
+        int fimPalavra = inicio + 1;
+        while (fimPalavra < linha.length() && (Character.isLetterOrDigit(linha.charAt(fimPalavra)) || linha.charAt(fimPalavra) == '_')) {
+            fimPalavra++;
+        }
+        String palavra = linha.substring(inicio, fimPalavra);
+        partes.add(palavra);
+        return fimPalavra;
+    }
+
+    private static int extrairTexto(String linha, int inicio, List<String> partes) {
+    int fimTexto = inicio + 1;
+    while (fimTexto < linha.length() && linha.charAt(fimTexto) != '\'') {
+        fimTexto++;
+    }
+    if (fimTexto < linha.length() && linha.charAt(fimTexto) == '\'') {
+        String texto = linha.substring(inicio, fimTexto + 1);
+        
+        // Remove os espaços em branco antes de verificar se o texto contém apenas uma palavra
+        String textoSemEspacos = texto.replaceAll("\\s+", "");
+        
+        // Verifica se o texto sem espaços contém apenas uma palavra
+        if (!textoSemEspacos.isEmpty() && !textoSemEspacos.contains(" ")) {
+            partes.add(texto);
+        } else {
+            partes.add("token_erro");
+        }
+        
+        return fimTexto + 1;
+    } else {
+        return inicio;
+    }
+
+}
 
     public String verificarTipoPalavra(String token) {
         switch (token) {
@@ -191,13 +228,32 @@ public class AnalisadorToken {
                     } else {
                         if ((Identificador(token))) {
                             return "Identificador";
+                        }else{
+                            if(istext(token)){
+                                return "Texto";
+                            }else{
+                                if(nottext(token)){
+                                    return "Erro";
+                                }
+                            }
                         }
-
                         return "Erro";
                     }
                 }
         }
     }
+    
+    public static boolean istext(String txt){
+        if ((txt.indexOf('\'') != -1) && (txt.endsWith("\'"))) {
+            return true;
+        }
+        return false;
+    }
+    
+    public static boolean nottext(String txt) {
+    return !(txt.indexOf('\'') != -1 && txt.startsWith("\'") && txt.endsWith("\'"));
+}
+    
 
     public static boolean Identificador(String palavra) {
         if (palavra.isEmpty() || (!Character.isLetter(palavra.charAt(0)) && (palavra.charAt(0) != '_' || palavra.charAt(0) != '@'))) {

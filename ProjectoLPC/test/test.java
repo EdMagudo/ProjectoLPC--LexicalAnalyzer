@@ -95,10 +95,10 @@ public class test extends javax.swing.JFrame {
         AnalisadorToken a = new AnalisadorToken();
         List<tabelaToken> h = new ArrayList<>();
         tabelaToken f;
-        List<String> b = a.dividirTextoEmLinhas(campo.getText());
+        List<String> b = a.QuebrarLinhas(campo.getText());
        int g = 0;
         for (String c : b) {
-            List<String> d = a.analisarLexicamente(c);
+            List<String> d = a.QuebrarPalavras(c);
             g++;
             for (String e : d) {
                 

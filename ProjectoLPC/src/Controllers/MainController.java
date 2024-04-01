@@ -23,10 +23,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javax.swing.JOptionPane;
@@ -71,20 +75,24 @@ public class MainController implements Initializable {
 
     @FXML
     private Button touch;
-    
-     FileChooser fileChooser = new FileChooser();
+
+    @FXML
+    private VBox linhas;
+
+    FileChooser fileChooser = new FileChooser();
 
     ObservableList<tabelaToken> tokensList = FXCollections.observableArrayList();
+    String fileIn = new String();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tabela.getItems().clear();
-        
+
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + File.separator + "Desktop"));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Ficheiro de Texto", "*.txt"),
-                new FileChooser.ExtensionFilter("Ficheiro de Pascal", "*.pas"));
+        new FileChooser.ExtensionFilter("Ficheiro de Pascal", "*.pas"));
 
-        
+
     }
 
     String paragrafos;
@@ -95,7 +103,7 @@ public class MainController implements Initializable {
 
     @FXML
     void create(MouseEvent event) {
-      fileChooser.setTitle("Criar um ficheiro");
+        fileChooser.setTitle("Criar um ficheiro");
         fileIn = fileChooser.showSaveDialog(null).getAbsolutePath();
         File file = new File(fileIn);
         String texto = campo.getText();
@@ -113,6 +121,7 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
         campo.setText("");
+        tabela.getItems().clear();
     }
 
     @FXML
@@ -159,7 +168,7 @@ public class MainController implements Initializable {
 
     @FXML
     void runn(MouseEvent event) {
-        
+
         int tempo1 = (int) System.currentTimeMillis();
         String texto = campo.getText();
 
@@ -167,10 +176,10 @@ public class MainController implements Initializable {
         AnalisadorToken a = new AnalisadorToken();
         List<tabelaToken> h = new ArrayList<>();
         tabelaToken f;
-        List<String> b = a.dividirTextoEmLinhas(campo.getText());
+        List<String> b = a.QuebrarLinhas(campo.getText());
         int numeroLinha = 0;
         for (String c : b) {
-            List<String> palavra = a.analisarLexicamente(c);
+            List<String> palavra = a.QuebrarPalavras(c);
             numeroLinha++;
             for (String tokens : palavra) {
 
@@ -185,13 +194,17 @@ public class MainController implements Initializable {
         lexema.setCellValueFactory(new PropertyValueFactory<tabelaToken, String>("lexema"));
 
         tabela.setItems(tokensList);
-        int tempo2 =(int) System.currentTimeMillis();
-        
-        
-        time.setText((tempo2-tempo1) + " " + "mls");
+        int tempo2 = (int) System.currentTimeMillis();
+
+        time.setText((tempo2 - tempo1) + " " + "milisegundos");
     }
-    
-    
+
+    public void barraLinha(String txt) {
+        String[] lines = txt.split("\n");
+        for (int i = 0; i < txt.length(); i++) {
+
+        }
+    }
 
     @FXML
     void trocarImagens(MouseEvent event) {
@@ -214,7 +227,7 @@ public class MainController implements Initializable {
     @FXML
     void configurar(MouseEvent event) {
         JOptionPane.showMessageDialog(null,
-                "Criado por:\nEdilton Idrice Magudo\nIvania Perce Chirindza\nKelton Gerlado Manjate\n\nLexicalAnalyzer V.1.0",
+                "UEM\nCriado por:\nEdilton Idrice Magudo\nIvania Perce Chirindza\nKelton Gerlado Manjate\n\nLexicalAnalyzer V.1.0",
                 "Developers",
                 JOptionPane.INFORMATION_MESSAGE);
     }

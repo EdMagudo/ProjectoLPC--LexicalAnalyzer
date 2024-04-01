@@ -25,6 +25,8 @@ public class Tokens {
     public static final String token_ponto = ".";
     public static final String token_virgula = ",";
     public static final String token_dois_pontos = ":";
+    public static final String token_aspa = "'";
+    
 
     // Tokens de operadores lógicos
     public static final String token_or = "or";
