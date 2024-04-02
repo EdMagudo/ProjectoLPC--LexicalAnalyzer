@@ -1,37 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
-  All rights reserved. Use is subject to license terms.
-
-  This file is available and licensed under the following license:
-
-  Redistribution and use in source and binary forms, with or without
-  modification, are permitted provided that the following conditions
-  are met:
-
-  - Redistributions of source code must retain the above copyright
-    notice, this list of conditions and the following disclaimer.
-  - Redistributions in binary form must reproduce the above copyright
-    notice, this list of conditions and the following disclaimer in
-    the documentation and/or other materials provided with the distribution.
-  - Neither the name of Oracle Corporation nor the names of its
-    contributors may be used to endorse or promote products derived
-    from this software without specific prior written permission.
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
--->
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -46,80 +14,87 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="775.0" prefWidth="1472.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
-  <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefWidth="730.0" VBox.vgrow="ALWAYS">
+<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="1528.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
+   <children>
+      <Pane layoutX="-3.0" layoutY="1.0" prefHeight="778.0" prefWidth="1531.0" style="-fx-background-color: #ccc;">
          <children>
-            <Pane layoutX="-1.0" prefHeight="786.0" prefWidth="1474.0" style="-fx-background-color: white;">
-               <children>
-                  <Pane layoutX="772.0" layoutY="9.0" prefHeight="50.0" prefWidth="688.0" style="-fx-background-color: #6F6F6F;">
-                     <children>
-                        <ImageView fx:id="settings" fitHeight="37.0" fitWidth="31.0" layoutX="643.0" layoutY="10.0" onMouseClicked="#configurar" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Image/settings.png" />
-                           </image>
-                        </ImageView>
-                        <HBox layoutX="14.0" layoutY="7.0" spacing="40.0">
-                           <children>
-                              <ImageView fx:id="new_File" fitHeight="31.0" fitWidth="31.0" onMouseClicked="#create" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Image/new_File.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="open_Folder" fitHeight="37.0" fitWidth="58.0" onMouseClicked="#openFloder" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Image/open_Folder.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="save" fitHeight="37.0" fitWidth="31.0" onMouseClicked="#save" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Image/save.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="run" fitHeight="37.0" fitWidth="31.0" onMouseClicked="#runn" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Image/run.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
-                        </HBox>
-                     </children>
-                  </Pane>
-                  <TableView fx:id="tabela" layoutX="771.0" layoutY="76.0" prefHeight="647.0" prefWidth="688.0">
-                    <columns>
-                      <TableColumn fx:id="linha" minWidth="34.39996337890625" prefWidth="76.79998779296875" text="Linha" />
-                      <TableColumn fx:id="token" minWidth="50.0" prefWidth="344.0" text="Token" />
-                        <TableColumn fx:id="lexema" minWidth="50.0" prefWidth="266.4000244140625" text="Lexema" />
-                    </columns>
-                  </TableView>
-                  <Pane layoutX="772.0" layoutY="732.0" prefHeight="37.0" prefWidth="688.0" style="-fx-background-color: #6F6F6F;">
-                     <children>
-                        <Text fill="WHITE" layoutX="19.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tempo de execução">
-                           <font>
-                              <Font name="Segoe UI Bold" size="18.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="time" fill="WHITE" layoutX="199.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 mls">
-                           <font>
-                              <Font name="Segoe UI" size="18.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </Pane>
-                  <BorderPane layoutX="7.0" layoutY="10.0" prefHeight="762.0" prefWidth="746.0">
-                     <center>
-                        <TextArea fx:id="campo" prefHeight="762.0" prefWidth="575.0" />
-                     </center>
-                     <left>
-                        <VBox fx:id="linhaa" prefHeight="762.0" prefWidth="23.0" style="-fx-background-color: Aqua;" BorderPane.alignment="CENTER" />
-                     </left>
-                  </BorderPane>
-               </children>
-            </Pane>
+            <BorderPane layoutX="10.0" layoutY="11.0" prefHeight="760.0" prefWidth="815.0">
+               <center>
+                  <TextArea fx:id="campo" prefHeight="757.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </TextArea>
+               </center>
+               <left>
+                  <VBox fx:id="linhas" prefHeight="738.0" prefWidth="32.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </VBox>
+               </left>
+            </BorderPane>
          </children>
-    </AnchorPane>
-  </children>
-</VBox>
+      </Pane>
+      <Pane layoutX="832.0" layoutY="12.0" prefHeight="50.0" prefWidth="688.0" style="-fx-background-color: #333; -fx-border-radius: 10px;">
+         <children>
+            <ImageView fx:id="settings" fitHeight="37.0" fitWidth="31.0" layoutX="643.0" layoutY="10.0" onMouseClicked="#configurar" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Image/settings.png" />
+               </image>
+            </ImageView>
+            <HBox layoutX="14.0" layoutY="7.0" spacing="40.0">
+               <children>
+                  <ImageView fx:id="new_File" fitHeight="31.0" fitWidth="31.0" onMouseClicked="#create" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Image/new_File.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="open_Folder" fitHeight="37.0" fitWidth="58.0" onMouseClicked="#openFloder" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Image/open_Folder.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="save" fitHeight="37.0" fitWidth="31.0" onMouseClicked="#save" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Image/save.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="run" fitHeight="37.0" fitWidth="31.0" onMouseClicked="#runn" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Image/run.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </Pane>
+      <TableView fx:id="tabela" layoutX="833.0" layoutY="70.0" prefHeight="660.0" prefWidth="686.0">
+         <columns>
+            <TableColumn fx:id="linha" minWidth="34.39996337890625" prefWidth="76.79998779296875" text="Linha" />
+            <TableColumn fx:id="token" minWidth="50.0" prefWidth="344.0" text="Token" />
+            <TableColumn fx:id="lexema" minWidth="50.0" prefWidth="266.4000244140625" text="Lexema" />
+         </columns>
+      </TableView>
+      <Pane layoutX="832.0" layoutY="735.0" prefHeight="37.0" prefWidth="688.0" style="-fx-background-color: #333;">
+         <children>
+            <Text fill="WHITE" layoutX="19.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tempo de execução">
+               <font>
+                  <Font name="Segoe UI Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="time" fill="WHITE" layoutX="199.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 mls">
+               <font>
+                  <Font name="Segoe UI" size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

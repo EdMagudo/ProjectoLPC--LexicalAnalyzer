@@ -11,7 +11,7 @@ public class ProjectoLPC extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/View/v2.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/ViewPrincipal.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         Image image = new Image("/Image/configuracao.png");

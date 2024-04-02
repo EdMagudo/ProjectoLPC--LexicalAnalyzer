@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -92,6 +95,10 @@ public class MainController implements Initializable {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Ficheiro de Texto", "*.txt"),
         new FileChooser.ExtensionFilter("Ficheiro de Pascal", "*.pas"));
 
+        
+        campo.textProperty().addListener((observable,oldValue,newValue) -> {
+            colocarLinhas(newValue);
+        });
 
     }
 
@@ -230,6 +237,16 @@ public class MainController implements Initializable {
                 "UEM\nCriado por:\nEdilton Idrice Magudo\nIvania Perce Chirindza\nKelton Gerlado Manjate\n\nLexicalAnalyzer V.1.0",
                 "Developers",
                 JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    
+    public void colocarLinhas(String txt){
+        linhas.getChildren().clear();
+        
+        String [] linhasDividas = txt.split("\n");
+        for(int i=0; i<=linhasDividas.length; i++){
+            linhas.getChildren().add(new Label(String.valueOf(i+1)));
+        }
     }
 
 }
