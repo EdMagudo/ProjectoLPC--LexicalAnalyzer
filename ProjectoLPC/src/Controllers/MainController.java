@@ -1,11 +1,8 @@
 package Controllers;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import javax.swing.JFileChooser;
 
 import DAO.AnalisadorToken;
 import DAO.tabelaToken;
@@ -13,8 +10,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,13 +21,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -124,7 +116,6 @@ public class MainController implements Initializable {
         } catch (IOException e) {
             Alert alerta = new Alert(AlertType.ERROR, "Ocorreu um erro");
             alerta.showAndWait();
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         campo.setText("");
@@ -146,7 +137,6 @@ public class MainController implements Initializable {
             reader.close();
             campo.setText(texto.toString());
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -168,7 +158,6 @@ public class MainController implements Initializable {
         } catch (IOException e) {
             Alert alerta = new Alert(AlertType.ERROR, "Ocorreu um erro");
             alerta.showAndWait();
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -177,11 +166,9 @@ public class MainController implements Initializable {
     void runn(MouseEvent event) {
 
         int tempo1 = (int) System.currentTimeMillis();
-        String texto = campo.getText();
 
         ObservableList<tabelaToken> tokensList = FXCollections.observableArrayList();
         AnalisadorToken a = new AnalisadorToken();
-        List<tabelaToken> h = new ArrayList<>();
         tabelaToken f;
         List<String> b = a.QuebrarLinhas(campo.getText());
         int numeroLinha = 0;
@@ -204,13 +191,6 @@ public class MainController implements Initializable {
         int tempo2 = (int) System.currentTimeMillis();
 
         time.setText((tempo2 - tempo1) + " " + "milisegundos");
-    }
-
-    public void barraLinha(String txt) {
-        String[] lines = txt.split("\n");
-        for (int i = 0; i < txt.length(); i++) {
-
-        }
     }
 
     @FXML
