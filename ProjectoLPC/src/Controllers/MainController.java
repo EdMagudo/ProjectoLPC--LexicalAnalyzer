@@ -87,7 +87,7 @@ public class MainController implements Initializable {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Ficheiro de Texto", "*.txt"),
         new FileChooser.ExtensionFilter("Ficheiro de Pascal", "*.pas"));
 
-        
+
         campo.textProperty().addListener((observable,oldValue,newValue) -> {
             colocarLinhas(newValue);
         });
@@ -177,7 +177,7 @@ public class MainController implements Initializable {
             numeroLinha++;
             for (String tokens : palavra) {
 
-                
+
                 f = new tabelaToken(numeroLinha, new AnalisadorToken().verificarTipoPalavra(tokens), tokens);
                 tokensList.add(f);
                 System.out.println(f.toString());
@@ -219,11 +219,11 @@ public class MainController implements Initializable {
                 "Developers",
                 JOptionPane.INFORMATION_MESSAGE);
     }
-    
-    
+
+
     public void colocarLinhas(String txt){
         linhas.getChildren().clear();
-        
+
         String [] linhasDividas = txt.split("\n");
         for(int i=0; i<=linhasDividas.length; i++){
             linhas.getChildren().add(new Label(String.valueOf(i+1)));

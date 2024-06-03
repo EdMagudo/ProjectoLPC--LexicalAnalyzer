@@ -14,23 +14,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="1528.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
+<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="1528.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
    <children>
-      <Pane layoutX="-3.0" layoutY="1.0" prefHeight="778.0" prefWidth="1531.0" style="-fx-background-color: #bebebe;">
+      <Pane layoutX="-3.0" layoutY="-5.0" prefHeight="784.0" prefWidth="1531.0" style="-fx-background-color: #555;">
          <children>
-            <BorderPane layoutX="14.0" layoutY="69.0" prefHeight="700.0" prefWidth="998.0">
+            <BorderPane layoutX="10.0" layoutY="71.0" prefHeight="700.0" prefWidth="815.0">
                <center>
-                  <TextArea fx:id="campo" prefHeight="760.0" prefWidth="928.0" BorderPane.alignment="TOP_LEFT">
+                  <TextArea fx:id="campo" prefHeight="757.0" prefWidth="800.0" stylesheets="@../CSS/style.css" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>
-                     <BorderPane.margin>
-                        <Insets bottom="-6.0" left="-2.0" right="-2.0" top="-6.0" />
-                     </BorderPane.margin>
                   </TextArea>
                </center>
                <left>
-                  <VBox fx:id="linhas" prefHeight="750.0" prefWidth="32.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+                  <VBox fx:id="linhas" prefHeight="738.0" prefWidth="32.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets />
                      </BorderPane.margin>
@@ -42,59 +39,50 @@
             </BorderPane>
          </children>
       </Pane>
-      <Pane layoutX="11.0" layoutY="12.0" prefHeight="50.0" prefWidth="1509.0" style="-fx-background-color: #1d477b;">
+      <Pane layoutX="8.0" layoutY="12.0" prefHeight="50.0" prefWidth="1512.0" style="-fx-background-color: #333; -fx-border-radius: 10px;" stylesheets="@../CSS/style.css">
          <children>
-            <BorderPane layoutY="7.0" prefHeight="37.0" prefWidth="1509.0">
-               <right>
-                  <ImageView fx:id="settings" fitHeight="37.0" fitWidth="31.0" onMouseClicked="#configurar" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <HBox layoutX="14.0" layoutY="7.0" spacing="40.0">
+               <children>
+                  <ImageView fx:id="new_File" fitHeight="31.0" fitWidth="31.0" onMouseClicked="#create" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Image/new_File.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="open_Folder" fitHeight="31.0" fitWidth="58.0" onMouseClicked="#openFloder" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Image/open_Folder.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="save" fitHeight="31.0" fitWidth="31.0" onMouseClicked="#save" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Image/save.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="run" fitHeight="31.0" fitWidth="31.0" onMouseClicked="#runn" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Image/run.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="settings" fitHeight="31.0" fitWidth="31.0" onMouseClicked="#configurar" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Image/settings.png" />
                      </image>
-                     <BorderPane.margin>
-                        <Insets right="15.0" />
-                     </BorderPane.margin>
                   </ImageView>
-               </right>
-               <left>
-                  <HBox spacing="40.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <ImageView fx:id="new_File" fitHeight="31.0" fitWidth="31.0" onMouseClicked="#create" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Image/new_File.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="open_Folder" fitHeight="37.0" fitWidth="58.0" onMouseClicked="#openFloder" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Image/open_Folder.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="save" fitHeight="37.0" fitWidth="31.0" onMouseClicked="#save" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Image/save.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="run" fitHeight="37.0" fitWidth="31.0" onMouseClicked="#runn" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Image/run.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <padding>
-                        <Insets left="10.0" right="10.0" />
-                     </padding>
-                  </HBox>
-               </left>
-            </BorderPane>
+               </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+            </HBox>
          </children>
       </Pane>
-      <TableView fx:id="tabela" layoutX="1019.0" layoutY="70.0" prefHeight="660.0" prefWidth="500.0">
+      <TableView fx:id="tabela" layoutX="833.0" layoutY="70.0" prefHeight="660.0" prefWidth="686.0" stylesheets="@../CSS/style.css">
          <columns>
-            <TableColumn fx:id="token" minWidth="50.0" prefWidth="85.0" text="Token" />
-            <TableColumn fx:id="lexema" minWidth="50.0" prefWidth="247.0" text="Lexema" />
             <TableColumn fx:id="linha" minWidth="34.39996337890625" prefWidth="76.79998779296875" text="Linha" />
+            <TableColumn fx:id="token" minWidth="50.0" prefWidth="344.0" text="Token" />
+            <TableColumn fx:id="lexema" minWidth="50.0" prefWidth="266.4000244140625" text="Lexema" />
          </columns>
       </TableView>
-      <Pane layoutX="1020.0" layoutY="735.0" prefHeight="37.0" prefWidth="500.0" style="-fx-background-color: #1d477b;">
+      <Pane layoutX="832.0" layoutY="735.0" prefHeight="37.0" prefWidth="688.0" style="-fx-background-color: #333;" stylesheets="@../CSS/style.css">
          <children>
             <Text fill="WHITE" layoutX="19.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tempo de execução">
                <font>
