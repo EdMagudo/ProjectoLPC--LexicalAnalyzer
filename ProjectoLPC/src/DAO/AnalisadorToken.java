@@ -289,5 +289,12 @@ public class AnalisadorToken {
     public static boolean isSinalAtribuicao(String palavra) {
         return palavra.equals(":=");
     }
+    
+    
+    
+    
+    
+    
+    
 
 }

@@ -34,6 +34,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javax.swing.JOptionPane;
@@ -95,6 +96,7 @@ public class MainController implements Initializable {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Ficheiro de Texto", "*.txt"),
         new FileChooser.ExtensionFilter("Ficheiro de Pascal", "*.pas"));
 
+        tabela.setPlaceholder(new Label(""));
         
         campo.textProperty().addListener((observable,oldValue,newValue) -> {
             colocarLinhas(newValue);
@@ -240,13 +242,14 @@ public class MainController implements Initializable {
     }
     
     
-    public void colocarLinhas(String txt){
-        linhas.getChildren().clear();
-        
-        String [] linhasDividas = txt.split("\n");
-        for(int i=0; i<=linhasDividas.length; i++){
-            linhas.getChildren().add(new Label(String.valueOf(i+1)));
-        }
+    public void colocarLinhas(String txt) {
+    linhas.getChildren().clear();
+    String[] linhasDividas = txt.split("\n");
+
+    for (int i = 0; i < linhasDividas.length; i++) {
+        Label lineNumberLabel = new Label(String.valueOf(i + 1));
+        linhas.getChildren().add(lineNumberLabel);
     }
+}
 
 }

@@ -1,0 +1,146 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    .root {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        -fx-padding: 10;
+    }
+
+    .container {
+        -fx-background-color: #fff;
+        -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
+        -fx-border-radius: 8;
+    }
+
+    .header {
+        -fx-background-color: #333;
+        -fx-border-radius: 8 8 0 0;
+    }
+
+    .btn {
+        -fx-background-color: #4CAF50;
+        -fx-text-fill: white;
+        -fx-border-radius: 5;
+        -fx-padding: 10 20;
+    }
+
+    .btn:hover {
+        -fx-background-color: #45a049;
+    }
+
+    .text-input {
+        -fx-padding: 10;
+        -fx-border-color: #ccc;
+        -fx-border-radius: 4;
+        -fx-font-size: 16;
+        -fx-box-sizing: border-box;
+        -fx-pref-height: 200;
+    }
+
+    .token-table {
+        -fx-border-color: #ddd;
+        -fx-border-radius: 4;
+    }
+
+    .token-table th, .token-table td {
+        -fx-padding: 8;
+        -fx-border-color: #ddd;
+    }
+
+    .token-table th {
+        -fx-background-color: #f2f2f2;
+        -fx-text-fill: black;
+    }
+
+    .footer {
+        -fx-background-color: #333;
+        -fx-border-radius: 0 0 8 8;
+        -fx-text-fill: white;
+    }
+
+    .loader {
+        -fx-border-color: #f3f3f3;
+        -fx-border-radius: 50%;
+        -fx-border-width: 16;
+        -fx-border-top-color: #3498db;
+        -fx-width: 60;
+        -fx-height: 60;
+    }
+
+    .execution-time {
+        -fx-font-size: 18;
+    }
+    .root {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        -fx-padding: 10;
+    }
+
+    .container {
+        -fx-background-color: #fff;
+        -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
+        -fx-border-radius: 8;
+    }
+
+    .header {
+        -fx-background-color: #333;
+        -fx-border-radius: 8 8 0 0;
+    }
+
+    .btn {
+        -fx-background-color: #4CAF50;
+        -fx-text-fill: white;
+        -fx-border-radius: 5;
+        -fx-padding: 10 20;
+    }
+
+    .btn:hover {
+        -fx-background-color: #45a049;
+    }
+
+    .text-input {
+        -fx-padding: 10;
+        -fx-border-color: #ccc;
+        -fx-border-radius: 4;
+        -fx-font-size: 16;
+        -fx-box-sizing: border-box;
+        -fx-pref-height: 200;
+    }
+
+    .token-table {
+        -fx-border-color: #ddd;
+        -fx-border-radius: 4;
+    }
+
+    .token-table th, .token-table td {
+        -fx-padding: 8;
+        -fx-border-color: #ddd;
+    }
+
+    .token-table th {
+        -fx-background-color: #f2f2f2;
+        -fx-text-fill: black;
+    }
+
+    .footer {
+        -fx-background-color: #333;
+        -fx-border-radius: 0 0 8 8;
+        -fx-text-fill: white;
+    }
+
+    .loader {
+        -fx-border-color: #f3f3f3;
+        -fx-border-radius: 50%;
+        -fx-border-width: 16;
+        -fx-border-top-color: #3498db;
+        -fx-width: 60;
+        -fx-height: 60;
+    }
+
+    .execution-time {
+        -fx-font-size: 18;
+    }
+}
