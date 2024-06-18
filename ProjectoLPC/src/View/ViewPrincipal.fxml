@@ -14,13 +14,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="1528.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
+<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="1528.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
    <children>
       <Pane layoutX="-3.0" layoutY="1.0" prefHeight="778.0" prefWidth="1531.0" style="-fx-background-color: #ccc;">
          <children>
-            <BorderPane layoutX="18.0" layoutY="74.0" prefHeight="648.0" prefWidth="807.0">
+            <BorderPane layoutX="18.0" layoutY="74.0" prefHeight="648.0" prefWidth="807.0" style="-fx-border-radius: 10px;">
                <center>
-                  <TextArea fx:id="campo" prefHeight="555.0" prefWidth="658.0" BorderPane.alignment="CENTER">
+                  <TextArea fx:id="campo" prefHeight="555.0" prefWidth="658.0" style="-fx-border-radius: 20px;" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>
@@ -39,7 +39,7 @@
             </BorderPane>
          </children>
       </Pane>
-      <Pane layoutX="8.0" layoutY="12.0" prefHeight="50.0" prefWidth="1512.0" style="-fx-background-color: #254Fg; -fx-border-radius: 10px; -fx-border-color: white;">
+      <Pane layoutX="8.0" layoutY="12.0" prefHeight="50.0" prefWidth="1512.0" style="-fx-background-color: #225544; -fx-border-radius: 10px;">
          <children>
             <ImageView fx:id="settings" fitHeight="37.0" fitWidth="31.0" layoutX="1463.0" layoutY="10.0" onMouseClicked="#configurar" onMouseEntered="#trocarImagens" onMouseExited="#voltarImagens" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -75,7 +75,7 @@
             </HBox>
          </children>
       </Pane>
-      <TableView fx:id="tabela" layoutX="833.0" layoutY="76.0" prefHeight="645.0" prefWidth="686.0" style="-fx-border-radius: 20px;">
+      <TableView fx:id="tabela" layoutX="833.0" layoutY="76.0" prefHeight="645.0" prefWidth="686.0" style="-fx-border-radius: 20px;" stylesheets="@../CSS/style.css">
          <columns>
             <TableColumn fx:id="linha" minWidth="34.39996337890625" prefWidth="76.79998779296875" text="Linha" />
             <TableColumn fx:id="token" minWidth="50.0" prefWidth="344.0" text="Token" />
