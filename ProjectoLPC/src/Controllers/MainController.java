@@ -24,6 +24,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
@@ -131,6 +132,8 @@ public class MainController implements Initializable {
         }
         campo.setText("");
         tabela.getItems().clear();
+         time.setText(0 + " milisegundos");
+
     }
 
     @FXML
@@ -151,7 +154,8 @@ public class MainController implements Initializable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+        
+        time.setText(0 + " milisegundos");
     }
 
     @FXML
@@ -201,8 +205,25 @@ public class MainController implements Initializable {
         linha.setCellValueFactory(new PropertyValueFactory<tabelaToken, Integer>("numero_linha"));
         token.setCellValueFactory(new PropertyValueFactory<tabelaToken, String>("token"));
         lexema.setCellValueFactory(new PropertyValueFactory<tabelaToken, String>("lexema"));
-
+        
+           
         tabela.setItems(tokensList);
+        
+        
+         tabela.setRowFactory(tv -> new TableRow<tabelaToken>() {
+            @Override
+            protected void updateItem(tabelaToken item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setStyle("");
+                } else if ("erro".equalsIgnoreCase(item.getToken())) {
+                    setStyle("-fx-background-color: #e08e79;");
+                } else {
+                    setStyle("");
+                }
+            }
+        });
+         
         int tempo2 = (int) System.currentTimeMillis();
 
         time.setText((tempo2 - tempo1) + " " + "milisegundos");

@@ -269,13 +269,24 @@ public class AnalisadorToken {
         return !(txt.indexOf('\'') != -1 && txt.startsWith("\'") && txt.endsWith("\'"));
     }
 
-    public static boolean Identificador(String palavra) {
-        if (palavra.isEmpty() || (!Character.isLetter(palavra.charAt(0)) && (palavra.charAt(0) != '_' || palavra.charAt(0) != '@'))) {
-            return false;
-        }
+  
+   public static boolean Identificador(String palavra) {
+    boolean a = false;
 
-        return true;
+    if (palavra.length() > 0 && Character.isLetter(palavra.charAt(0))) {
+        a = true;
+
+        for (int i = 1; i < palavra.length(); i++) {
+            if (!Character.isLetterOrDigit(palavra.charAt(i))) {
+                a = false;
+                break;
+            }
+        }
     }
+
+    return a;
+}
+
 
     public static boolean isNumero(String palavra) {
         try {
@@ -289,12 +300,5 @@ public class AnalisadorToken {
     public static boolean isSinalAtribuicao(String palavra) {
         return palavra.equals(":=");
     }
-    
-    
-    
-    
-    
-    
-    
 
 }

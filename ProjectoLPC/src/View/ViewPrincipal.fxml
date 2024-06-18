@@ -27,7 +27,7 @@
                   </TextArea>
                </center>
                <left>
-                  <VBox fx:id="linhas" prefHeight="738.0" prefWidth="32.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+                  <VBox fx:id="linhas" prefHeight="618.0" prefWidth="32.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets />
                      </BorderPane.margin>
@@ -82,14 +82,14 @@
             <TableColumn fx:id="lexema" minWidth="50.0" prefWidth="266.4000244140625" text="Lexema" />
          </columns>
       </TableView>
-      <Pane layoutX="16.0" layoutY="735.0" prefHeight="38.0" prefWidth="1504.0" style="-fx-background-color: #254F; -fx-border-radius: 20px;">
+      <Pane layoutX="16.0" layoutY="735.0" prefHeight="38.0" prefWidth="1504.0" style="-fx-background-color: #254F; -fx-border-radius: 10px;">
          <children>
             <Text fill="WHITE" layoutX="19.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tempo de execução">
                <font>
                   <Font name="Segoe UI Bold" size="18.0" />
                </font>
             </Text>
-            <Text fx:id="time" fill="WHITE" layoutX="199.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 mls" wrappingWidth="98.134765625">
+            <Text fx:id="time" fill="WHITE" layoutX="221.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 mls" wrappingWidth="267.73486328125">
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font>
