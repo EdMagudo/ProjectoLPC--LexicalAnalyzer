@@ -16,11 +16,11 @@
 
 <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="1528.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
    <children>
-      <Pane layoutX="-3.0" layoutY="1.0" prefHeight="778.0" prefWidth="1531.0" style="-fx-background-color: #ccc;">
+      <Pane layoutX="-3.0" layoutY="-8.0" prefHeight="787.0" prefWidth="1531.0" style="-fx-background-color: #ccc;">
          <children>
-            <BorderPane layoutX="18.0" layoutY="74.0" prefHeight="648.0" prefWidth="807.0">
+            <BorderPane layoutX="18.0" layoutY="84.0" prefHeight="645.0" prefWidth="807.0" style="-fx-border-radius: 10px;">
                <center>
-                  <TextArea fx:id="campo" prefHeight="555.0" prefWidth="658.0" BorderPane.alignment="CENTER">
+                  <TextArea fx:id="campo" prefHeight="555.0" prefWidth="658.0" style="-fx-border-radius: 20px;" stylesheets="@../CSS/style.css" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>
