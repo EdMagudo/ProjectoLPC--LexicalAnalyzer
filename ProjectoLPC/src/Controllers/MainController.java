@@ -234,7 +234,7 @@ public class MainController implements Initializable {
     @FXML
     void configurar(MouseEvent event) {
         JOptionPane.showMessageDialog(null,
-                "UEM\nCriado por:\nEdilton Idrice Magudo\nIvania Perce Chirindza\nKelton Gerlado Manjate\n\nLexicalAnalyzer V.1.0",
+                "UEM\nCriado por:\nEdilton Idrice Magudo\nIvânia Perce Chirindza\nKelton Gerlado Manjate\n\nLexicalAnalyzer V.1.0",
                 "Developers",
                 JOptionPane.INFORMATION_MESSAGE);
     }
